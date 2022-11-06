@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export default function Header() {
     return (
-        <header className="flex items-center justify-between h-[6rem] padding sticky top-0">
+        <header className="flex items-center justify-between h-[6rem] padding sticky top-0 bg-white">
             <Logo />
             <Nav />
         </header>

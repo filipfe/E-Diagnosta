@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp"
 import ClientForm from "./pages/signup/ClientForm"
 import StationForm from "./pages/signup/StationForm"
 import SKP from "./pages/SKP"
+import Footer from "./components/Footer"
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/rejestracja/skp" element={<StationForm />} />
         </Routes>
       </main>
+      <Footer />
     </>
   )
 }

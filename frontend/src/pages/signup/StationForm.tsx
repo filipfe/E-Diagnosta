@@ -6,7 +6,8 @@ export default function StationForm() {
     const [alert, setAlert] = useState('')
     const [confPassword, setConfPassword] = useState('')
     const [details, setDetails] = useState({
-        password: '',
+        login_number: '',
+        password: ''
     })
 
     const handleLogin = () => {
