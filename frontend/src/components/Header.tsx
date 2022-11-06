@@ -21,9 +21,10 @@ const Nav = () => {
         <>
             <div className={`flex flex-col md:flex-row justify-center items-center bg-white gap-4 text-sm font-medium absolute top-0 md:relative left-full transition-transform ${active && '-translate-x-full'} md:left-auto h-screen md:h-full w-screen md:w-max`}>
                 <CustomLink to='/'>Strona Główna</CustomLink>
-                <CustomLink to='/about'>O nas</CustomLink>
-                <Link className="border-[2px] mt-4 md:mt-0 md:ml-4 font-semibold border-primary text-primary rounded flex items-center py-2 px-6" to='/login'>Zaloguj się</Link>
-                <Link className="bg-primary border-[2px] transition-colors hover:border-darkPrimary hover:bg-darkPrimary font-semibold border-primary text-white rounded flex items-center py-2 px-6" to='/signup'>Załóż Konto</Link>
+                <CustomLink to='/skp'>Nasze Stacje</CustomLink>
+                <CustomLink to='/o-nas'>O Nas</CustomLink>
+                <Link className="border-[2px] mt-4 md:mt-0 md:ml-4 font-semibold border-primary text-primary rounded flex items-center py-2 px-6" to='/logowanie'>Zaloguj się</Link>
+                <Link className="bg-primary border-[2px] transition-colors hover:border-darkPrimary hover:bg-darkPrimary font-semibold border-primary text-white rounded flex items-center py-2 px-6" to='/rejestracja'>Załóż Konto</Link>
             </div>
             <div onClick={() => setActive(prev => !prev)} className='burger flex flex-col relative z-50 sm:hidden h-5 w-8 justify-between cursor-pointer'>
                 <div style={active ? {position: 'absolute', top: '50%', transform: 'translateY(-50%) rotate(45deg)', maxWidth: '100%'} : { maxWidth: '60%' }} className={lineStyle}></div>
