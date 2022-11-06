@@ -1,10 +1,12 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import SKPSearch from "../components/SKPSearch"
 
 export default function SKP() {
     return (
         <section className="padding pt-[1in]">
             <h1 className="mb-8 font-bold text-xl">Nasze stacje</h1>
+            <SKPSearch />
             <SKPList />
         </section>
     )

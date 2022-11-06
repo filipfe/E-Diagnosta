@@ -3,14 +3,18 @@ import { createSlice } from '@reduxjs/toolkit'
 interface LoginState {
     logged: boolean
     data: {
-        access: string
+        first_name: string,
+        last_name: string,
+        email: string
     }
 }
 
 const initialState: LoginState = {
     logged: false,
     data: {
-        access: ''
+        first_name: '',
+        last_name: '',
+        email: ''
     }
 } 
 
