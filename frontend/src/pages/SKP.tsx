@@ -14,9 +14,10 @@ export default function SKP() {
     )
 }
 
-interface StationProps {
-    name: '',
-    image: ''
+export interface StationProps {
+    id: number,
+    name: string,
+    image: string
 }
 
 const SKPList = () => {
