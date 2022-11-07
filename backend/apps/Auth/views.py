@@ -102,4 +102,3 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
 class SKPListView(generics.ListAPIView):
     queryset = SKP
     serializer_class = SKPListSerializer
-    permission_classes = [IsAuthenticated]
