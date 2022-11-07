@@ -21,6 +21,9 @@ class SignUpSerializer(serializers.ModelSerializer):
         return instance
 
 class UserSerializer(serializers.ModelSerializer):
+    image = serializers.CharField(source='skp.image')
+    name = serializers.CharField(source='skp.name')
+    city = serializers.CharField(source='skp.city')
     class Meta:
         model = User
         fields = '__all__'
