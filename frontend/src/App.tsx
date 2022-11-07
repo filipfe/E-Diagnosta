@@ -13,7 +13,7 @@ import PrivateRoute from "./utils/PrivateRoute"
 import Profile from "./pages/Profile"
 import Verify from "./pages/signup/Verify"
 import { useEffect } from "react"
-import { useAppDispatch } from "./main"
+import { useAppDispatch, useAppSelector } from "./main"
 import { login } from "./reducers/login"
 import jwtDecode from 'jwt-decode'
 
@@ -22,9 +22,11 @@ const loginFromLocalStorage = loginString && JSON.parse(loginString)
 
 export default function App() {
   const dispatch = useAppDispatch()
+  const auth = useAppSelector(state => state.login)
   useEffect(() => {
     if(loginFromLocalStorage) {
       let user: User = jwtDecode(loginFromLocalStorage.access)
+      console.log(user)
       dispatch(login({
           data: {
               first_name: user.first_name,
@@ -36,6 +38,11 @@ export default function App() {
       }))
     }
   }, [])
+
+  useEffect(() => {
+    console.log(auth)
+  }, [auth])
+  
   return (
     <>
       <Header />

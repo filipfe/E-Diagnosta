@@ -23,11 +23,12 @@ export default function Verify() {
             })
         }
     }, [])
-    if(status.ok) return (
+    return (
         <section className="padding pt-[1in] flex flex-col gap-4">
-            <h1>Użytkownik został utworzony</h1>
-            <Link to='/logowanie'><FilledButton>Zaloguj się</FilledButton></Link>
+            {status.ok ? <>
+                <h1>Użytkownik został utworzony</h1>
+                <Link to='/logowanie'><FilledButton>Zaloguj się</FilledButton></Link>
+            </> : <h1>Ładowanie</h1>}
         </section>
     )
-    return <h1>Ładowanie</h1>
 }

@@ -32,6 +32,12 @@ export const loginSlice = createSlice({
             state.logged = true
             state.data = action.payload.data
             state.tokens = action.payload.tokens
+        },
+        logout: state => {
+            localStorage.removeItem('login')
+            state = {
+                ...initialState
+            }
         }
     }
 })
