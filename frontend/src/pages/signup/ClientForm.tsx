@@ -1,9 +1,12 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import FilledButton from '../../components/FilledButton'
 
 export default function ClientForm() {
-    const [alert, setAlert] = useState('')
+    const [status, setStatus] = useState({
+        ok: false,
+        message: ''
+    })
     const [confPassword, setConfPassword] = useState('')
     const [details, setDetails] = useState({
         first_name: '',
@@ -12,22 +15,27 @@ export default function ClientForm() {
         password: '',
     })
 
-    const handleLogin = () => {
-        if(details.password.length < 8) return setAlert("Hasło musi posiadać co najmniej 8 znaków.")
-        if(details.password !== confPassword) return setAlert("Hasła się nie zgadzają!")
+    const handleLogin = (e: FormEvent) => {
+        e.preventDefault();
+        if(details.password.length < 8) return setStatus({ok: false, message: "Hasło musi posiadać co najmniej 8 znaków."})
+        if(details.password !== confPassword) return setStatus({ok: false, message: "Hasła się nie zgadzają!"})
         try {
-            axios.post('/api/signup', JSON.stringify(details), {
+            axios.post('/api/rejestracja/klient', JSON.stringify({...details, type: 'user'}), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(res => res.data)
-            .then(data => console.log(data))
+            }).then(() => setStatus({
+                ok: true,
+                message: ''
+            }))
         }
         catch(err) {
             console.log(err)
         }
     }
     
+    if(status.ok) return <section className="padding pt-[1in]"><h1 className='min-h-screen padding'>Email weryfikacyjny został wysłany</h1></section>
+
     return (
         <section className='padding pt-[1.4in] md:pt-[1.8in] 2xl:pt-[2.2in] min-h-screen'>
             <form className='flex flex-col gap-4' onSubmit={handleLogin}>
@@ -36,6 +44,7 @@ export default function ClientForm() {
                 <input type='email' placeholder="Email" name='email' id='email' onChange={e => setDetails(prev => { return { ...prev, email: e.target.value }})} />
                 <input type='password' placeholder="Hasło" name='password' id='password' onChange={e => setDetails(prev => { return { ...prev, password: e.target.value }})} />
                 <input type='password' placeholder="Powtórz Hasło" name='confPassword' id='confPassword' onChange={e => setConfPassword(e.target.value)} />
+                {!status.ok && status.message && <span className='text-red-400 font-medium'>{status.message}</span>}
                 <FilledButton type='submit'>Zarejestruj</FilledButton>
             </form>
         </section>

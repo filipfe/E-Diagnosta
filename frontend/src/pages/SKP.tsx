@@ -5,8 +5,10 @@ import SKPSearch from "../components/SKPSearch"
 export default function SKP() {
     return (
         <section className="padding pt-[1in]">
-            <h1 className="mb-8 font-bold text-xl">Nasze stacje</h1>
-            <SKPSearch />
+            <div className="mb-8 flex flex-col gap-4">
+                <h1 className="font-bold text-xl">Nasze stacje</h1>
+                <SKPSearch />
+            </div>
             <SKPList />
         </section>
     )
@@ -35,8 +37,8 @@ const SKPList = () => {
 
 const StationRef = (props: StationProps) => {
     return (
-        <div className="flex items-center">
-            <img src={`/images/${props.image.split('/').pop()}`} alt="" />
+        <div className="flex items-center gap-4 rounded p-4 shadow">
+            <img src={`/images/skp/${props.image.split('/').pop()}`} alt="" />
             <h3>{props.name}</h3>
         </div>
     )
