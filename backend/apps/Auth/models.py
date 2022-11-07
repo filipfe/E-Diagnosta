@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 class SKP(models.Model):
-    image = models.ImageField(upload_to='SKP')
+    image = models.ImageField(upload_to='skp')
     name = models.CharField(max_length=255, unique=True)
     city = models.CharField(max_length=255)
     is_verified = models.BooleanField(default=False)
