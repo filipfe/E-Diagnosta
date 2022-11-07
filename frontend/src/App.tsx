@@ -13,20 +13,20 @@ import PrivateRoute from "./utils/PrivateRoute"
 import Profile from "./pages/Profile"
 import Verify from "./pages/signup/Verify"
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "./main"
+import { useAppDispatch } from "./main"
 import { login } from "./reducers/login"
 import jwtDecode from 'jwt-decode'
+import AdminRoute from "./utils/AdminRoute"
+import AdminPanel from "./pages/AdminPanel"
 
 const loginString: string | null = localStorage.getItem('login')
 const loginFromLocalStorage = loginString && JSON.parse(loginString)
 
 export default function App() {
   const dispatch = useAppDispatch()
-  const auth = useAppSelector(state => state.login)
   useEffect(() => {
     if(loginFromLocalStorage) {
       let user: User = jwtDecode(loginFromLocalStorage.access)
-      console.log(user)
       dispatch(login({
           data: {
               first_name: user.first_name,
@@ -38,10 +38,6 @@ export default function App() {
       }))
     }
   }, [])
-
-  useEffect(() => {
-    console.log(auth)
-  }, [auth])
   
   return (
     <>
@@ -57,6 +53,7 @@ export default function App() {
           <Route path="/rejestracja/skp" element={<PublicRoute><StationForm /></PublicRoute>} />
           <Route path="/rejestracja/klient/verify/*" element={<PublicRoute><Verify /></PublicRoute>} />
           <Route path="/profil" element={<PrivateRoute><Profile /></PrivateRoute>} />
+          <Route path="/administracja" element={<AdminRoute><AdminPanel /></AdminRoute>} />
         </Routes>
       </main>
       <Footer />
