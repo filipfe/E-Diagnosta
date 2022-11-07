@@ -36,6 +36,7 @@ export default function ClientForm() {
                 <input type='email' placeholder="Email" name='email' id='email' onChange={e => setDetails(prev => { return { ...prev, email: e.target.value }})} />
                 <input type='password' placeholder="Hasło" name='password' id='password' onChange={e => setDetails(prev => { return { ...prev, password: e.target.value }})} />
                 <input type='password' placeholder="Powtórz Hasło" name='confPassword' id='confPassword' onChange={e => setConfPassword(e.target.value)} />
+                {alert && <span className='text-red-400 font-medium'>{alert}</span>}
                 <FilledButton type='submit'>Zarejestruj</FilledButton>
             </form>
         </section>
