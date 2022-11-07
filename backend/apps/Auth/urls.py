@@ -12,4 +12,5 @@ urlpatterns = [
     path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/logout', views.LogoutView.as_view()),
     path('api/user/<pk>', views.UserView.as_view()),
+    path('api/skp', views.SKPListView.as_view()),
 ]
