@@ -1,4 +1,4 @@
-from .models import User
+from .models import User, SKP
 from rest_framework import serializers
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -30,4 +30,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+class SKPListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SKP
+        fields = ['image', 'name', 'city']
         
