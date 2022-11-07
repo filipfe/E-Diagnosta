@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { cities } from "../constants/Cities"
+import { cities } from "../constants/cities"
 
 export default function CitySearchBar({ setSearch }: { setSearch: any }) {
     const searchBar = useRef<any>(null!)
