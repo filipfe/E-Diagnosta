@@ -26,12 +26,13 @@ const UnVerified = () => {
             .then(data => setUnVerified(data))
     }, [])
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        axios.post('/skp/verify/action', JSON.stringify({
+        const response = await axios.post('/skp/verify/action', JSON.stringify({
             data: selected,
             action: action
         }), { headers: { 'Content-Type': 'application/json' }})
+        console.log(response)
     }
 
     return (
