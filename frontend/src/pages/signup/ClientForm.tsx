@@ -20,7 +20,7 @@ export default function ClientForm() {
         if(details.password.length < 8) return setStatus({ok: false, message: "Hasło musi posiadać co najmniej 8 znaków."})
         if(details.password !== confPassword) return setStatus({ok: false, message: "Hasła się nie zgadzają!"})
         try {
-            axios.post('/api/rejestracja', JSON.stringify(details), {
+            axios.post('/api/rejestracja/klient', JSON.stringify(details), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -34,8 +34,8 @@ export default function ClientForm() {
         }
     }
     
-    if(status.ok) return <h1>Email weryfikacyjny został wysłany</h1>
-    
+    if(status.ok) return <h1 className='min-h-screen padding'>Email weryfikacyjny został wysłany</h1>
+
     return (
         <section className='padding pt-[1.4in] md:pt-[1.8in] 2xl:pt-[2.2in] min-h-screen'>
             <form className='flex flex-col gap-4' onSubmit={handleLogin}>

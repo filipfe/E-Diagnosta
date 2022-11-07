@@ -20,7 +20,7 @@ const Nav = () => {
     const [active, setActive] = useState(false)
     const auth = useAppSelector(state => state.login)
     const { logged } = auth
-    const { first_name } = auth.data 
+    const { first_name } = auth.data
 
     return (
         <>

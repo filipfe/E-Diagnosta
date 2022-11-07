@@ -19,7 +19,6 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('apps.SKP.urls')),
     path('', include('apps.Auth.urls')),
     path('', views.index),
     path('skp', views.index),

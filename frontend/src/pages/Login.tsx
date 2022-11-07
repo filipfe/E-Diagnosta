@@ -1,8 +1,19 @@
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import { FormEvent, useState } from 'react'
 import FilledButton from '../components/FilledButton'
+import { useAppDispatch } from '../main'
+import { login } from '../reducers/login'
+
+export interface User {
+    first_name: string,
+    last_name: string,
+    email: string,
+    type: string
+}
 
 export default function Login() {
+    const dispatch = useAppDispatch()
     const [details, setDetails] = useState({
         email: '',
         password: ''
@@ -11,12 +22,24 @@ export default function Login() {
     const handleLogin = (e: FormEvent) => {
         e.preventDefault();
         try {
-            axios.post('/api/login', JSON.stringify(details), {
+            axios.post('/api/logowanie', JSON.stringify(details), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }).then(res => res.data)
-            .then(data => console.log(data))
+            .then(data => {
+                let user: User = jwtDecode(data.access)
+                localStorage.setItem('login', JSON.stringify(data))
+                dispatch(login({
+                    data: {
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        email: user.email,
+                        type: user.type
+                    },
+                    tokens: { ...data }
+                }))
+            })
         }
         catch(err) {
             console.log(err)

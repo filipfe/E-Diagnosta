@@ -30,8 +30,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
         
-        token['username'] = user.username
+        token['first_name'] = user.username
+        token['last_name'] = user.username
         token['email'] = user.email
+        token['type'] = user.type
 
         if user.is_verified == False:
             raise AuthenticationFailed('Activate your account')
@@ -95,4 +97,4 @@ class LogoutView(APIView):
 class UserView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]

@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router"
 import Home from "./pages/Home"
 import Header from "./components/Header"
 import AboutUs from "./pages/AboutUs"
-import Login from "./pages/Login"
+import Login, { User } from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import ClientForm from "./pages/signup/ClientForm"
 import StationForm from "./pages/signup/StationForm"
@@ -12,9 +12,30 @@ import PublicRoute from "./utils/PublicRoute"
 import PrivateRoute from "./utils/PrivateRoute"
 import Profile from "./pages/Profile"
 import Verify from "./pages/signup/Verify"
+import { useEffect } from "react"
+import { useAppDispatch } from "./main"
+import { login } from "./reducers/login"
+import jwtDecode from 'jwt-decode'
+
+const loginString: string | null = localStorage.getItem('login')
+const loginFromLocalStorage = loginString && JSON.parse(loginString)
 
 export default function App() {
-
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    if(loginFromLocalStorage) {
+      let user: User = jwtDecode(loginFromLocalStorage.access)
+      dispatch(login({
+          data: {
+              first_name: user.first_name,
+              last_name: user.last_name,
+              email: user.email,
+              type: user.type
+          },
+          tokens: { ...loginFromLocalStorage }
+      }))
+    }
+  }, [])
   return (
     <>
       <Header />
