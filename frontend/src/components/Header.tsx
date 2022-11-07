@@ -28,7 +28,7 @@ const Nav = () => {
                 <CustomLink to='/'>Strona Główna</CustomLink>
                 <CustomLink to='/skp'>Nasze Stacje</CustomLink>
                 <CustomLink to='/o-nas'>O Nas</CustomLink>
-                { logged ? <Link className="font-bold" to='/profil'>{first_name}</Link> : 
+                { logged ? <Link className="font-bold text-base ml-2" to='/profil'>{first_name}</Link> : 
                 <>
                     <Link className="border-[2px] mt-4 md:mt-0 md:ml-4 font-semibold border-primary text-primary rounded flex items-center py-2 px-6" to='/logowanie'>Zaloguj się</Link>
                     <Link className="bg-primary border-[2px] transition-colors hover:border-darkPrimary hover:bg-darkPrimary font-semibold border-primary text-white rounded flex items-center py-2 px-6" to='/rejestracja'>Załóż Konto</Link>

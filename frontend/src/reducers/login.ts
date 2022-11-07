@@ -8,7 +8,7 @@ export interface LoginState {
         last_name: string,
         email: string
     },
-    tokens?: {
+    tokens: {
         access: string,
         refresh: string
     }
@@ -21,6 +21,10 @@ const initialState: LoginState = {
         first_name: '',
         last_name: '',
         email: ''
+    },
+    tokens: {
+        access: '',
+        refresh: ''
     }
 } 
 
@@ -35,13 +39,17 @@ export const loginSlice = createSlice({
         },
         logout: state => {
             localStorage.removeItem('login')
-            state = {
-                ...initialState
+            state.logged = false
+            state.data = {
+                ...initialState.data
+            }
+            state.tokens = {
+                ...initialState.tokens
             }
         }
     }
 })
 
-export const { login } = loginSlice.actions
+export const { login, logout } = loginSlice.actions
 
 export default loginSlice.reducer

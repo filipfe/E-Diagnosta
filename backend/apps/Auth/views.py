@@ -1,6 +1,6 @@
-from .serializers import SignUpSerializer, UserSerializer
+from .serializers import *
 from .utils import Util
-from .models import User
+from .models import User, SKP
 
 from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.shortcuts import get_current_site
@@ -97,4 +97,9 @@ class LogoutView(APIView):
 class UserView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User
     serializer_class = UserSerializer
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+
+class SKPListView(generics.ListAPIView):
+    queryset = SKP
+    serializer_class = SKPListSerializer
+    permission_classes = [IsAuthenticated]
