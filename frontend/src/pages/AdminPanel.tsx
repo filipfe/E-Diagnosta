@@ -28,7 +28,7 @@ const UnVerified = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        axios.post('', JSON.stringify({
+        axios.post('/skp/verify/action', JSON.stringify({
             data: selected,
             action: action
         }), { headers: { 'Content-Type': 'application/json' }})
