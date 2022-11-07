@@ -95,10 +95,10 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class UserView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User
+    queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
 class SKPListView(generics.ListAPIView):
-    queryset = SKP
+    queryset = SKP.objects.all()
     serializer_class = SKPListSerializer
