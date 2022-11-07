@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import FilledButton from '../components/FilledButton'
 
 export default function Login() {
@@ -8,7 +8,8 @@ export default function Login() {
         password: ''
     })
 
-    const handleLogin = () => {
+    const handleLogin = (e: FormEvent) => {
+        e.preventDefault();
         try {
             axios.post('/api/login', JSON.stringify(details), {
                 headers: {

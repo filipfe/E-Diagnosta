@@ -11,6 +11,7 @@ import Footer from "./components/Footer"
 import PublicRoute from "./utils/PublicRoute"
 import PrivateRoute from "./utils/PrivateRoute"
 import Profile from "./pages/Profile"
+import Verify from "./pages/signup/Verify"
 
 export default function App() {
 
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/rejestracja" element={<PublicRoute><SignUp /></PublicRoute>} />
           <Route path="/rejestracja/klient" element={<PublicRoute><ClientForm /></PublicRoute>} />
           <Route path="/rejestracja/skp" element={<PublicRoute><StationForm /></PublicRoute>} />
+          <Route path="/rejestracja/klient/verify/*" element={<PublicRoute><Verify /></PublicRoute>} />
           <Route path="/profil" element={<PrivateRoute><Profile /></PrivateRoute>} />
         </Routes>
       </main>
