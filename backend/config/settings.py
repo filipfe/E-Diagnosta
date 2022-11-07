@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-7ta#9g*s)r-#d41ajokh^q-(7_q)$8id0)q%@6c&u*6%n6v^0l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'ediagnosta.herokuapp.com']
 
 
 # Application definition
@@ -183,12 +183,13 @@ SIMPLE_JWT = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    
+    'https://ediagnosta.herokuapp.com',    
 ]
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:5173',
     'http://localhost:8000',
+    'https://ediagnosta.herokuapp.com',
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
