@@ -20,9 +20,11 @@ class SKP(models.Model):
 
 USER = 'User'
 STATION = 'Station'
+ADMIN = 'Admin'
 TYPES = [
     (USER, 'User'),
     (STATION, 'Station'),
+    (ADMIN, 'Admin'),
 ]
 
 class User(AbstractUser):

@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('images/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('', include('apps.Auth.urls')),
+    path('', include('apps.Administration.urls')),
     path('', views.index),
     path('skp', views.index),
     path('rejestracja', views.index),
