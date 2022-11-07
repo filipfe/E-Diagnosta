@@ -16,9 +16,8 @@ html, body {
 }
 
 body {
-  color: #17131C;
-  background-color: #FCFBFD;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .padding {
@@ -38,4 +37,8 @@ body {
     padding-left: 18vw;
     padding-right: 18vw;
   }
+}
+
+section {
+  min-height: 100vh;
 }
