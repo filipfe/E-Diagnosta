@@ -21,14 +21,14 @@ const UnVerified = () => {
     const [action, setAction] = useState<'verify' | 'delete' | null>(null)
 
     useEffect(() => {
-        axios.get('/skp/verify')
+        axios.get('/api/skp/verify')
             .then(res => res.data)
             .then(data => setUnVerified(data))
     }, [])
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        const response = await axios.post('/skp/verify/action', JSON.stringify({
+        const response = await axios.post('/api/skp/verify/action', JSON.stringify({
             data: selected,
             action: action
         }), { headers: { 'Content-Type': 'application/json' }})
