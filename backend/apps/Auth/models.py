@@ -22,9 +22,9 @@ USER = 'User'
 STATION = 'Station'
 ADMIN = 'Admin'
 TYPES = [
-    (USER, 'User'),
-    (STATION, 'Station'),
-    (ADMIN, 'Admin'),
+    (USER, 'user'),
+    (STATION, 'station'),
+    (ADMIN, 'admin'),
 ]
 
 class User(AbstractUser):
