@@ -28,11 +28,12 @@ const UnVerified = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+        selected.forEach(sel => setUnVerified(prev => prev.filter(item => sel !== item.id)))
         const response = await axios.post('/api/skp/verify/action', JSON.stringify({
             data: selected,
             action: action
         }), { headers: { 'Content-Type': 'application/json' }})
-        console.log(response)
+        return setSelected([])
     }
 
     return (
@@ -56,12 +57,8 @@ const Station = (props: StationVerifyRef) => {
     const [checked, setChecked] = useState(false)
 
     useEffect(() => {
-        if(checked) props.setSelected((prev: number[]) => prev.push(props.id))
-        if(!checked) props.setSelected((prev: number[]) => {
-            let index = prev.indexOf(props.id)
-            if(index === -1) return prev
-            return prev.splice(index, 1)
-        })
+        if(checked) props.setSelected((prev: number[]) => [...prev, props.id])
+        if(!checked) props.setSelected((prev: number[]) => prev.filter(el => el !== props.id))
     }, [checked])
 
     return (

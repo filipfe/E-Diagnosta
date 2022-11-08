@@ -30,4 +30,5 @@ urlpatterns = [
     path('logowanie', views.index),
     path('o-nas', views.index),
     path('profil', views.index),
+    path('administracja', views.index),
 ]
