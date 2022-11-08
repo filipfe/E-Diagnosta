@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 class SKP(models.Model):
     image = models.ImageField(upload_to='skp')
     name = models.CharField(max_length=255, unique=True)
-    city = models.CharField(max_length=255)
+    city = models.CharField(max_length=255, db_collation='utf8_polish_ci')
     is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

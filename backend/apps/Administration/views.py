@@ -6,6 +6,14 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+class SKPCitiesView(APIView):
+    def get(self, request):
+        cities = SKP.objects.filter(is_verified=True).order_by('city')#.distinct('city')
+        cities_list = []
+        for x in cities:
+            cities_list.append(x.city)
+        return Response(cities_list)
+
 class SKPVerifyListView(generics.ListAPIView):
     queryset = SKP.objects.filter(is_verified=False).order_by('created_at')
     serializer_class = SKPVerifySerializer
