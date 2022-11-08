@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function SKPSearch() {
+export default function StationSearchBar() {
     const [input, setInput] = useState('')
     useEffect(() => {
         console.log(`wyszukano ${input}`)

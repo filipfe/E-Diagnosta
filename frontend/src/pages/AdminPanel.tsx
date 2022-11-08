@@ -56,12 +56,8 @@ const Station = (props: StationVerifyRef) => {
     const [checked, setChecked] = useState(false)
 
     useEffect(() => {
-        if(checked) props.setSelected((prev: number[]) => prev.push(props.id))
-        if(!checked) props.setSelected((prev: number[]) => {
-            let index = prev.indexOf(props.id)
-            if(index === -1) return prev
-            return prev.splice(index, 1)
-        })
+        if(checked) props.setSelected((prev: number[]) => [...prev, props.id])
+        if(!checked) props.setSelected((prev: number[]) => prev.filter(sel => sel !== props.id))
     }, [checked])
 
     return (
