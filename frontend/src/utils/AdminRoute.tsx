@@ -1,9 +1,8 @@
 import { ReactElement } from "react";
-import { useAppSelector } from "../main";
 import { Navigate } from "react-router";
+import { useAppSelector } from "../main";
 
 export default function AdminRoute({ children }: { children: ReactElement }) {
     const { type } = useAppSelector(state => state.login.data)
-    console.log(type)
-    return type === 'admin' ? children : <Navigate to='/profil' />
+    return type === 'admin' ? children : <Navigate to='/logowanie' />
 }
