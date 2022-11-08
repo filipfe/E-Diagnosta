@@ -18,9 +18,9 @@ class SKP(models.Model):
             self.name,
             )
 
-USER = 'User'
-STATION = 'Station'
-ADMIN = 'Admin'
+USER = 'user'
+STATION = 'station'
+ADMIN = 'admin'
 TYPES = [
     (USER, 'user'),
     (STATION, 'station'),
