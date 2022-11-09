@@ -5,7 +5,7 @@ import { useAppSelector } from "../main"
 
 export default function Header() {
     return (
-        <header className="flex items-center justify-between h-[6rem] padding sticky top-0 bg-white">
+        <header className="flex items-center shadow-[0px_0px_102px_rgba(15,50,235,0.08)] justify-between h-[6rem] padding sticky top-0 bg-white">
             <Logo />
             <Nav />
         </header>
@@ -52,5 +52,5 @@ type CustomLink = {
 const CustomLink = ({children, to, className}: CustomLink) => {
     const activePath = useResolvedPath(to)
     const isActive = useMatch({path: `${activePath.pathname}/*`, end: true})
-    return <Link to={to} className={`${className && className} transition-colors font-medium ${isActive ? 'text-primary' : 'hover:text-primary'}`}>{children}</Link>
+    return <Link to={to} className={`${className && className} transition-colors font-semibold ${isActive ? 'text-primary' : 'hover:text-primary'}`}>{children}</Link>
 }

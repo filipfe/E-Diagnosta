@@ -14,7 +14,7 @@ import Profile from "./pages/Profile"
 import Verify from "./pages/signup/Verify"
 import { useEffect } from "react"
 import { useAppDispatch } from "./main"
-import { login } from "./reducers/login"
+import { login, logout } from "./reducers/login"
 import jwtDecode from 'jwt-decode'
 import AdminRoute from "./utils/AdminRoute"
 import AdminPanel from "./pages/AdminPanel"
@@ -36,7 +36,7 @@ export default function App() {
           },
           tokens: { ...loginFromLocalStorage }
       }))
-    }
+    } else dispatch(logout())
   }, [])
   
   return (
