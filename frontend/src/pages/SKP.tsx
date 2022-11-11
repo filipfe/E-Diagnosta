@@ -4,11 +4,8 @@ import StationSearchBar from "../components/StationSearchBar"
 
 export default function SKP() {
     return (
-        <section className="padding pt-[1in]">
-            <div className="mb-8 flex flex-col gap-4">
-                <h1 className="font-bold text-xl">Nasze stacje</h1>
-                <StationSearchBar />
-            </div>
+        <section className="padding pt-[1.4in] md:pt-[2in]">
+            <h1 className="font-bold text-xl">Nasze stacje</h1>
             <SKPList />
         </section>
     )
@@ -30,9 +27,12 @@ const SKPList = () => {
     }, [])
 
     return (
-        <div className="flex flex-col gap-4">
-            {stations.map(station => <StationRef {...station} key={station.name} />)}
-        </div>
+        <>
+            <StationSearchBar setStations={setStations} />
+            <div className="flex flex-col gap-4">
+                {stations.map(station => <StationRef {...station} key={station.name} />)}
+            </div>
+        </>
     )
 }
 

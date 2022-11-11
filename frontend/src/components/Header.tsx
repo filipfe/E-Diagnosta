@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom"
-import { useResolvedPath, useMatch } from 'react-router'
+import { useResolvedPath, useMatch, useLocation } from 'react-router'
 import { useState } from 'react'
 import { useAppSelector } from "../main"
 
 export default function Header() {
+    const location = useLocation()
+    let path = location.pathname
+    if(path?.includes('rejestracja') || path?.includes('logowanie')) return <></>
     return (
-        <header className="flex items-center shadow-[0px_0px_102px_rgba(15,50,235,0.08)] justify-between h-[5rem] md:h-[6rem] padding sticky z-30 top-0 bg-white">
+        <header className="flex items-center shadow-[0px_0px_102px_rgba(15,50,235,0.08)] justify-between h-[5rem] md:h-[6rem] padding fixed left-0 right-0 z-30 top-0 bg-white">
             <Logo />
             <Nav />
         </header>

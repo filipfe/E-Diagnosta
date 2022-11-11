@@ -1,9 +1,21 @@
+import axios from "axios"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 
-export default function StationSearchBar() {
+export default function StationSearchBar({ setStations }: { setStations: any }) {
     const [input, setInput] = useState('')
+    const navigate = useNavigate()
+    
     useEffect(() => {
-        console.log(`wyszukano ${input}`)
+        if(!input) navigate('/skp')
+        if(input) {
+            let url = `/skp/search?q=${input}`
+            navigate(url)
+            axios.get(url)
+                .then(res => res.data)
+                .then(data => setStations(data))
+        }
     }, [input])
-    return <input type='text' onChange={e => setInput(e.target.value)} placeholder="Wyszukaj nazwę stacji" />
+
+    return <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wyszukaj nazwę stacji" />
 }
