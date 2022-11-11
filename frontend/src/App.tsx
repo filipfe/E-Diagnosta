@@ -12,7 +12,7 @@ import PublicRoute from "./utils/PublicRoute"
 import PrivateRoute from "./utils/PrivateRoute"
 import Profile from "./pages/Profile"
 import Verify from "./pages/signup/Verify"
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
 import { useAppDispatch } from "./main"
 import { login, logout } from "./reducers/login"
 import jwtDecode from 'jwt-decode'
@@ -24,7 +24,8 @@ const loginFromLocalStorage = loginString && JSON.parse(loginString)
 
 export default function App() {
   const dispatch = useAppDispatch()
-  useEffect(() => {
+  
+  useLayoutEffect(() => {
     if(loginFromLocalStorage) {
       let user: User = jwtDecode(loginFromLocalStorage.access)
       dispatch(login({
@@ -42,7 +43,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main>
+      <main style={{minHeight: '100vh'}}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/skp" element={<SKP />} />

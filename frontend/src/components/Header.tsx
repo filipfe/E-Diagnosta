@@ -5,7 +5,7 @@ import { useAppSelector } from "../main"
 
 export default function Header() {
     return (
-        <header className="flex items-center shadow-[0px_0px_102px_rgba(15,50,235,0.08)] justify-between h-[6rem] padding sticky top-0 bg-white">
+        <header className="flex items-center shadow-[0px_0px_102px_rgba(15,50,235,0.08)] justify-between h-[5rem] md:h-[6rem] padding sticky z-30 top-0 bg-white">
             <Logo />
             <Nav />
         </header>

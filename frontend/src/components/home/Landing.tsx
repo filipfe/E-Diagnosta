@@ -14,7 +14,7 @@ export default function Landing() {
     
     const handleSearch = (e: FormEvent) => {
         e.preventDefault();
-
+        
     }
     return (
         <section className="padding py-[0.8in] md:py-[1.2in] bg-background flex flex-col xl:grid xl:gap-8 grid-cols-[4fr_3fr]">
