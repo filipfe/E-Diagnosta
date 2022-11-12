@@ -32,7 +32,7 @@ const SKPList = () => {
             debounceSearch && 'q=' + debounceSearch,
             filter.city && 'c=' + filter.city
         ]
-        let url = `/skp${debounceSearch || filter.city ? '/search?' : ''}${searchArr.map(item => item).filter(item => item).join("&")}`
+        let url = `/skp${debounceSearch || filter.city ? '/search?' : ''}${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
         axios.get(url)
             .then(res => res.data)
             .then(data => setStations(data))
