@@ -30,6 +30,7 @@ urlpatterns = [
     path('o-nas', views.index),
     path('profil', views.index),
     path('administracja', views.index),
+    path('skp/search', views.index),
 
     path('', include('apps.Auth.urls')),
     path('', include('apps.Administration.urls')),
