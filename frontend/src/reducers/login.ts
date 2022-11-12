@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface LoginState {
-    logged: boolean
+    logged: boolean,
+    isLoading: boolean,
     data: {
         type: string,
         first_name: string,
@@ -16,6 +17,7 @@ export interface LoginState {
 
 const initialState: LoginState = {
     logged: false,
+    isLoading: true,
     data: {
         type: '',
         first_name: '',
@@ -36,6 +38,7 @@ export const loginSlice = createSlice({
             state.logged = true
             state.data = action.payload.data
             state.tokens = action.payload.tokens
+            state.isLoading = false
         },
         logout: state => {
             localStorage.removeItem('login')
@@ -46,6 +49,7 @@ export const loginSlice = createSlice({
             state.tokens = {
                 ...initialState.tokens
             }
+            state.isLoading = false
         }
     }
 })

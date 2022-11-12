@@ -1,9 +1,6 @@
-import axios from 'axios'
-import jwtDecode from 'jwt-decode'
-import { FormEvent, useState } from 'react'
-import FilledButton from '../components/FilledButton'
-import { useAppDispatch } from '../main'
-import { login } from '../reducers/login'
+import { Route, Routes } from 'react-router'
+import { loginMain } from '../assets/login'
+import LoginForm from './login/LoginForm'
 
 export interface User {
     first_name: string,
@@ -13,46 +10,16 @@ export interface User {
 }
 
 export default function Login() {
-    const dispatch = useAppDispatch()
-    const [details, setDetails] = useState({
-        email: '',
-        password: ''
-    })
-
-    const handleLogin = (e: FormEvent) => {
-        e.preventDefault();
-        try {
-            axios.post('/api/logowanie', JSON.stringify(details), {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.data)
-            .then(data => {
-                let user: User = jwtDecode(data.access)
-                localStorage.setItem('login', JSON.stringify(data))
-                dispatch(login({
-                    data: {
-                        first_name: user.first_name,
-                        last_name: user.last_name,
-                        email: user.email,
-                        type: user.type
-                    },
-                    tokens: { ...data }
-                }))
-            })
-        }
-        catch(err) {
-            console.log(err)
-        }
-    }
-    
     return (
-        <section className='padding pt-[1.4in] md:pt-[1.8in] 2xl:pt-[2.2in] min-h-screen'>
-            <form className='flex flex-col gap-4' onSubmit={handleLogin}>
-                <input type='email' placeholder="Email" name='email' id='email' onChange={e => setDetails(prev => { return { ...prev, email: e.target.value }})} />
-                <input type='password' placeholder="Hasło" name='password' id='password' onChange={e => setDetails(prev => { return { ...prev, password: e.target.value }})} />
-                <FilledButton>Zaloguj się</FilledButton>
-            </form>
-        </section>
+        <div className="flex flex-col xl:grid grid-cols-[5fr_4fr] xl:min-h-screen">
+            <section className="px-[8vw] md:px-[12vw] xl:px-0 xl:flex justify-center pt-[1.4in] xl:pt-[2in] pb-16">
+                <Routes>
+                    <Route path='/' element={<LoginForm />} />
+                </Routes>
+            </section>
+            <div className="min-w-full xl:flex items-center py-12 bg-[linear-gradient(134.13deg,rgba(239,242,254,0.55)_-25.82%,rgba(105,_127,_243,_0.473)_176.38%)]">
+                <img className="max-w-[80%] mx-auto" src={loginMain} alt="" />
+            </div>
+        </div>
     )
 }

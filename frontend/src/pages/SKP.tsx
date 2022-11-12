@@ -45,7 +45,7 @@ const SKPList = () => {
                 debounceSearch && 'q=' + debounceSearch,
                 filter.city && 'c=' + filter.city
             ]
-            url = `/api/skp/search?${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
+            url = `/skp/search?${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
         }
         return navigate(url)
     }, [debounceSearch, filter])

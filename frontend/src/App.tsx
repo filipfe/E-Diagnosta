@@ -36,7 +36,7 @@ export default function App() {
           tokens: { ...loginFromLocalStorage }
       }))
     } else dispatch(logout())
-  }, [])
+  }, [loginFromLocalStorage])
 
   return (
     <>
@@ -50,7 +50,7 @@ export default function App() {
             <Route path="/logowanie" element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="/rejestracja/*" element={<PublicRoute><SignUp /></PublicRoute>} />
             <Route path="/rejestracja/verify/*" element={<PublicRoute><Verify /></PublicRoute>} />
-            <Route path="/profil" element={<PrivateRoute><Profile /></PrivateRoute>} />
+            <Route path='/profil' element={<PrivateRoute><Profile /></PrivateRoute>} />
             <Route path="/administracja" element={<AdminRoute><AdminPanel /></AdminRoute>} />
           </Routes>
         </ScrollTop>

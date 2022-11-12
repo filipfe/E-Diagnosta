@@ -1,8 +1,10 @@
-import { ReactElement } from "react";
 import { useAppSelector } from "../main";
 import { Navigate } from "react-router";
 
-export default function AdminRoute({ children }: { children: ReactElement }) {
-    const { type } = useAppSelector(state => state.login.data)
+export default function AdminRoute({ children }: { children: JSX.Element }) {
+    const auth = useAppSelector(state => state.login)
+    const { type } = auth.data
+    const { isLoading } = auth
+    if(isLoading) return <></>
     return type === 'admin' ? children : <Navigate to='/profil' />
 }
