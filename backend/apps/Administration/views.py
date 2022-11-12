@@ -9,7 +9,6 @@ from rest_framework.response import Response
 class SKPVerifyListView(generics.ListAPIView):
     queryset = SKP.objects.filter(is_verified=False).order_by('created_at')
     serializer_class = SKPVerifySerializer
-    permission_classes = [IsAdminUser]
 
 class SKPVerifyPostView(APIView):
     def post(self, request):
