@@ -28,7 +28,11 @@ const SKPList = () => {
     const debounceSearch = useDebounce(input, 300)
 
     useEffect(() => {
-        let url = `/api/skp${debounceSearch || filter.city ? '/search?' : ''}${debounceSearch && 'q=' + debounceSearch}${filter.city && '&c=' + filter.city}`
+        let searchArr = [
+            debounceSearch && 'q=' + debounceSearch,
+            filter.city && 'c=' + filter.city
+        ]
+        let url = `/skp${debounceSearch || filter.city ? '/search?' : ''}${searchArr.map(item => item).filter(item => item).join("&")}`
         axios.get(url)
             .then(res => res.data)
             .then(data => setStations(data))
@@ -45,7 +49,7 @@ const SKPList = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-6 sm:grid grid-cols-skp">
-                {stations.length > 0 ? stations.map(station => <StationRef {...station} key={station.name} />) : <Loader />}
+                {stations.length > 0 ? stations.map(station => <StationRef {...station} key={station.name} />) : <Loader className="mx-auto" />}
             </div>
         </>
     )

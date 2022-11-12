@@ -21,7 +21,7 @@ class SearchSKP(generics.ListAPIView):
             q=Q()
             for x in queries.split():
                 q &= Q(name__icontains=x)
-            query.add(Q(is_verified=True) & Q(q))
+            query.add(Q(is_verified=True) & Q(q), Q.AND)
         if c:
             query.add(Q(city=c), Q.AND)
         
