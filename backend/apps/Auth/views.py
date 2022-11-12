@@ -40,14 +40,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         if user.is_verified == False:
             raise AuthenticationFailed('Activate your account')
 
-        send_sms(
-            'Email: ' +  user.email,
-            '+18563862164',
-            ['+48 790 541 511'],
-            fail_silently=False
-        )
-        print(send_sms)
-
         return token
 
 class MyTokenObtainPairView(TokenObtainPairView):
