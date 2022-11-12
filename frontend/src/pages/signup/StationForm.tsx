@@ -12,22 +12,20 @@ export default function StationForm() {
         message: ''
     })
     const [confPassword, setConfPassword] = useState('')
-    const [details, setDetails] = useState({
-        owner: {
-            first_name: '',
-            last_name: '',
-            email: '',
-            phone: '',
-            password: ''
-        },
-        station: {
-            name: '',
-            address: '',
-            postal_code: '',
-            email: '',
-            phone: '',
-            nip: ''
-        }
+    const [ownerDetails, setOwnerDetails] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        password: ''
+    })
+    const [stationDetails, setStationDetails] = useState({
+        name: '',
+        address: '',
+        postal_code: '',
+        email: '',
+        phone: '',
+        nip: ''
     })
 
     const handleStepChange = (e: FormEvent) => {
@@ -38,10 +36,10 @@ export default function StationForm() {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         setStatus({ ok: false, message: 'loading' })
-        if(details.owner.password !== confPassword) return setStatus({ok: false, message: "Hasła się nie zgadzają!"})
-        if(details.owner.password.length < 8) return setStatus({ok: false, message: "Hasło musi posiadać co najmniej 8 znaków."})
+        if(ownerDetails.password !== confPassword) return setStatus({ok: false, message: "Hasła się nie zgadzają!"})
+        if(ownerDetails.password.length < 8) return setStatus({ok: false, message: "Hasło musi posiadać co najmniej 8 znaków."})
         try {
-            axios.post('/api/rejestracja/klient', JSON.stringify({...details, type: 'station'}), {
+            axios.post('/api/rejestracja/klient', JSON.stringify({owner: ownerDetails, station: stationDetails, type: 'station'}), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -66,24 +64,24 @@ export default function StationForm() {
                     <form className='flex flex-col gap-4 font-medium relative' onSubmit={handleStepChange}>
                         <div className='flex flex-col max-w-full sm:grid grid-cols-2 gap-6'>
                             <div className='relative'>
-                                <input className={inputStyles.input} required type='text' name='firstName' id='firstName' onChange={e => setDetails(prev => { return { ...prev, first_name: e.target.value }})} />
-                                <span className={`${details.owner.first_name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Imię</span>
+                                <input className={inputStyles.input} required type='text' name='firstName' id='firstName' onChange={e => setOwnerDetails(prev => { return { ...prev, first_name: e.target.value }})} />
+                                <span className={`${ownerDetails.first_name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Imię</span>
                             </div>                    
                             <div className='relative'>
-                                <input className={inputStyles.input} required type='text' name='lastName' id='lastName' onChange={e => setDetails(prev => { return { ...prev, last_name: e.target.value }})} />
-                                <span className={`${details.owner.last_name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Nazwisko</span>
+                                <input className={inputStyles.input} required type='text' name='lastName' id='lastName' onChange={e => setOwnerDetails(prev => { return { ...prev, last_name: e.target.value }})} />
+                                <span className={`${ownerDetails.last_name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Nazwisko</span>
                             </div>
                             <div className='relative'>
-                                <input className={inputStyles.input} required type='email' name='email' id='email' onChange={e => setDetails(prev => { return { ...prev, email: e.target.value }})} />
-                                <span className={`${details.owner.email ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Email</span>
+                                <input className={inputStyles.input} required type='email' name='email' id='email' onChange={e => setOwnerDetails(prev => { return { ...prev, email: e.target.value }})} />
+                                <span className={`${ownerDetails.email ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Email</span>
                             </div>
                             <div className='relative'>
-                                <input className={inputStyles.input} required type='tel' name='phone' id='phone' onChange={e => setDetails(prev => { return { ...prev, phone: e.target.value }})} />
-                                <span className={`${details.owner.phone ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Numer telefonu</span>
+                                <input className={inputStyles.input} required type='tel' name='phone' id='phone' onChange={e => setOwnerDetails(prev => { return { ...prev, phone: e.target.value }})} />
+                                <span className={`${ownerDetails.phone ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Numer telefonu</span>
                             </div>
                             <div className='relative min-w-0'>
-                                <input className={inputStyles.input} required type='password' name='password' id='password' onChange={e => setDetails(prev => { return { ...prev, password: e.target.value }})} />
-                                <span className={`${details.owner.password ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Hasło</span>
+                                <input className={inputStyles.input} required type='password' name='password' id='password' onChange={e => setOwnerDetails(prev => { return { ...prev, password: e.target.value }})} />
+                                <span className={`${ownerDetails.password ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Hasło</span>
                             </div>
                             <div className='relative'>
                                 <input className={inputStyles.input} required type='password' name='confPassword' id='confPassword' onChange={e => setConfPassword(e.target.value)} />
@@ -105,24 +103,24 @@ export default function StationForm() {
                     <form className='flex flex-col gap-4 font-medium relative' onSubmit={handleSubmit}>
                         <div className='flex flex-col max-w-full sm:grid grid-cols-2 gap-6'>
                             <div className='relative'>
-                                <input className={inputStyles.input} type='text' name='firstName' id='firstName' onChange={e => setDetails(prev => { return { ...prev, first_name: e.target.value }})} />
-                                <span className={`${details.station.name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Nazwa</span>
+                                <input className={inputStyles.input} type='text' name='firstName' id='firstName' onChange={e => setStationDetails(prev => { return { ...prev, first_name: e.target.value }})} />
+                                <span className={`${stationDetails.name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Nazwa</span>
                             </div>                    
                             <div className='relative'>
-                                <input className={inputStyles.input} type='text' name='lastName' id='lastName' onChange={e => setDetails(prev => { return { ...prev, last_name: e.target.value }})} />
-                                <span className={`${details.station.address ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Adres</span>
+                                <input className={inputStyles.input} type='text' name='lastName' id='lastName' onChange={e => setStationDetails(prev => { return { ...prev, last_name: e.target.value }})} />
+                                <span className={`${stationDetails.address ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Adres</span>
                             </div>
                             <div className='relative min-w-0'>
-                                <input className={inputStyles.input} type='text' name='password' id='password' onChange={e => setDetails(prev => { return { ...prev, password: e.target.value }})} />
-                                <span className={`${details.station.postal_code ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Kod pocztowy</span>
+                                <input className={inputStyles.input} type='text' name='password' id='password' onChange={e => setStationDetails(prev => { return { ...prev, password: e.target.value }})} />
+                                <span className={`${stationDetails.postal_code ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Kod pocztowy</span>
                             </div>
                             <div className='relative'>
-                                <input className={inputStyles.input} type='email' name='email' id='email' onChange={e => setDetails(prev => { return { ...prev, email: e.target.value }})} />
-                                <span className={`${details.station.email ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Email</span>
+                                <input className={inputStyles.input} type='email' name='email' id='email' onChange={e => setStationDetails(prev => { return { ...prev, email: e.target.value }})} />
+                                <span className={`${stationDetails.email ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Email</span>
                             </div>
                             <div className='relative'>
-                                <input className={inputStyles.input} type='tel' name='phone' id='phone' onChange={e => setDetails(prev => { return { ...prev, phone: e.target.value }})} />
-                                <span className={`${details.station.phone ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Numer telefonu</span>
+                                <input className={inputStyles.input} type='tel' name='phone' id='phone' onChange={e => setStationDetails(prev => { return { ...prev, phone: e.target.value }})} />
+                                <span className={`${stationDetails.phone ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Numer telefonu</span>
                             </div>
                             <div className='relative'>
                                 <input className={inputStyles.input} type='password' name='confPassword' id='confPassword' onChange={e => setConfPassword(e.target.value)} />
