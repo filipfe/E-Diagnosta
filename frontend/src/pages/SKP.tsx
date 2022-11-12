@@ -2,6 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 import Loader from "../components/Loader"
+import SKPFilter from "../components/skp/StationFilter"
+import StationRef from "../components/skp/StationRef"
 import useDebounce from "../hooks/useDebounce"
 
 export default function SKP() {
@@ -17,7 +19,12 @@ export interface StationProps {
     id: number,
     name: string,
     city: string,
+    desc: string,
     image: string
+}
+
+export interface Filter {
+    city: string
 }
 
 const SKPList = () => {
@@ -25,21 +32,22 @@ const SKPList = () => {
     const location = useLocation()
     const [stations, setStations] = useState<StationProps[]>([])
     const [input, setInput] = useState('')
-    const [filter, setFilter] = useState({
+    const [filter, setFilter] = useState<Filter>({
         city: ''
     })
-    const debounceSearch = useDebounce(input, 300)
+    const debounceSearch = useDebounce(input, 500)
 
     useEffect(() => {
         setStations([])
-        if(input) {
+        let url = '/skp'
+        if(input || filter.city) {
             let searchArr = [
                 debounceSearch && 'q=' + debounceSearch,
                 filter.city && 'c=' + filter.city
             ]
-            let url = `/skp${debounceSearch || filter.city ? '/search?' : ''}${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
-            navigate(url)
+            url = `/skp/search?${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
         }
+        return navigate(url)
     }, [debounceSearch, filter])
 
     useEffect(() => {
@@ -52,34 +60,10 @@ const SKPList = () => {
 
     return (
         <>
-            <div className="flex items-center justify-between">
-                <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
-                <div className="flex items-center gap-4">
-                    <h4 className="font-semibold">Miasto: </h4>
-                    <button onClick={() => setFilter(prev => { return { ...prev, city: 'Warszawa'}})}>Warszawa</button>
-                    <button onClick={() => setFilter(prev => { return { ...prev, city: 'Kraków'}})}>Kraków</button>
-                </div>
-            </div>
+            <SKPFilter setFilter={setFilter} setInput={setInput} filter={filter} />
             <div className="flex flex-col gap-6 sm:grid grid-cols-skp">
                 {stations.length > 0 ? stations.map(station => <StationRef {...station} key={station.name} />) : <Loader className="mx-auto" />}
             </div>
         </>
-    )
-}
-
-const StationRef = (props: StationProps) => {
-    return (
-        <div className="flex flex-col gap-6 rounded p-6 border-[#E4E4E9] border-[1px]">
-            <div className="flex items-center gap-4">
-                <img className="rounded" src={`/images/skp/${props.image.split('/').pop()}`} alt="" />
-                <h3 className="font-bold">{props.name}</h3>
-            </div>
-            <p className="text-[#74788D]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex deserunt explicabo, quam repellat tenetur nostrum dolor, rerum animi similique atque esse modi laborum.</p>
-            <div className="flex items-center justify-between">
-                <h4 className="font-semibold">{props.city}</h4>
-                <h4 className="font-semibold">10 - 18</h4>
-                <button className="text-primary font-semibold">Wyświetl</button>
-            </div>
-        </div>
     )
 }
