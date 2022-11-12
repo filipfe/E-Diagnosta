@@ -15,6 +15,7 @@ export default function SKP() {
 export interface StationProps {
     id: number,
     name: string,
+    city: string,
     image: string
 }
 
@@ -52,7 +53,7 @@ const StationRef = (props: StationProps) => {
             </div>
             <p className="text-[#74788D]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex deserunt explicabo, quam repellat tenetur nostrum dolor, rerum animi similique atque esse modi laborum.</p>
             <div className="flex items-center justify-between">
-                <h4 className="font-semibold">Warszawa</h4>
+                <h4 className="font-semibold">{props.city}</h4>
                 <h4 className="font-semibold">10 - 18</h4>
                 <button className="text-primary font-semibold">Wyświetl</button>
             </div>
