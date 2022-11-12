@@ -20,7 +20,7 @@ const UnVerified = () => {
     const [action, setAction] = useState<'verify' | 'delete' | null>(null)
 
     useEffect(() => {
-        axios.get('/skp/verify')
+        axios.get('/api/skp/verify')
             .then(res => res.data)
             .then(data => setUnVerified(data))
     }, [])
