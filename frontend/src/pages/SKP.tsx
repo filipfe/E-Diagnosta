@@ -1,7 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Loader from "../components/Loader"
-import StationSearchBar from "../components/StationSearchBar"
 
 export default function SKP() {
     return (
@@ -15,22 +14,28 @@ export default function SKP() {
 export interface StationProps {
     id: number,
     name: string,
+    city: string,
     image: string
 }
 
 const SKPList = () => {
     const [stations, setStations] = useState<StationProps[]>([])
+    const [input, setInput] = useState('')
 
     useEffect(() => {
-        axios.get('/api/skp')
+        if(!input) axios.get('/api/skp')
             .then(res => res.data)
             .then(data => setStations(data))
-    }, [])
+
+        if(input) axios.get(`/api/skp/search?q=${input}`)
+                .then(res => res.data)
+                .then(data => setStations(data))
+    }, [input])
 
     return (
         <>
             <div className="flex items-center justify-between">
-                <StationSearchBar setStations={setStations} />
+                <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
                 <div className="flex items-center gap-4">
                     <h4 className="font-semibold">Miasto: </h4>
 
@@ -52,7 +57,7 @@ const StationRef = (props: StationProps) => {
             </div>
             <p className="text-[#74788D]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex deserunt explicabo, quam repellat tenetur nostrum dolor, rerum animi similique atque esse modi laborum.</p>
             <div className="flex items-center justify-between">
-                <h4 className="font-semibold">Warszawa</h4>
+                <h4 className="font-semibold">{props.city}</h4>
                 <h4 className="font-semibold">10 - 18</h4>
                 <button className="text-primary font-semibold">Wyświetl</button>
             </div>
