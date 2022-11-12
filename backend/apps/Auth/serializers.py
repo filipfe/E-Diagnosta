@@ -27,9 +27,4 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-
-class SKPListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SKP
-        fields = ['image', 'name', 'city']
         
