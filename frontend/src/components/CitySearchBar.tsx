@@ -11,7 +11,7 @@ export default function CitySearchBar({ setSearch }: { setSearch: any }) {
     const debounceSearch: string = useDebounce(input, 400)
 
     useEffect(() => {
-        let url = `/skp/cities/search${debounceSearch ? '?c=' + debounceSearch : ''}`
+        let url = `/api/skp/cities/search${debounceSearch ? '?c=' + debounceSearch : ''}`
         axios.get(url)
             .then(res => res.data)
             .then(data => setFilteredCities(data))
