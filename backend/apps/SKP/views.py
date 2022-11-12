@@ -15,13 +15,14 @@ class SearchSKP(generics.ListAPIView):
     serializer_class = SKPListSerializer
     paginate_by = 10
     def get_queryset(self, **kwargs):
-        queries = self.request.GET.get('q').split()
+        queries = self.request.GET.get('q')
+        c = self.request.GET.get('c')
         if queries:
+            queries.split()
             q=Q()
             for x in queries:
                 q &= Q(name__icontains=x)
-            return SKP.objects.filter(q
-            ).distinct()
+            return SKP.objects.filter(Q(is_verified=True) & Q(q) & Q(city=c))
         return None
 
 class SearchCities(APIView):
@@ -29,7 +30,7 @@ class SearchCities(APIView):
     def get(self, request):
         c = self.request.GET.get('c')
         if c:
-            cities = SKP.objects.filter(is_verified=True).filter(city__icontains=c).order_by('city').distinct('city')
+            cities = SKP.objects.filter(Q(is_verified=True) & Q(city__icontains=c)).order_by('city').distinct('city')
             cities_list = []
             for x in cities:
                 cities_list.append(x.city)
