@@ -1,6 +1,5 @@
 import axios from "axios"
 import { FormEvent, useEffect, useState } from "react"
-import FilledButton from "../components/FilledButton"
 import { StationProps } from "./SKP"
 
 
@@ -43,7 +42,7 @@ const UnVerified = () => {
                 <button onClick={() => setAction('delete')} className="py-2 px-5 rounded bg-red-400 text-white">Usuń</button>
             </div>
             {unVerified.map(station => <Station {...station} setSelected={setSelected} key={station.name} />)}
-            <FilledButton>Wykonaj</FilledButton>
+            {unVerified.length === 0 && selected.length === 0 && <h2>Brak niezweryfikowanych stacji!</h2>}
         </form>
     )
 }
@@ -56,12 +55,8 @@ const Station = (props: StationVerifyRef) => {
     const [checked, setChecked] = useState(false)
 
     useEffect(() => {
-        if(checked) props.setSelected((prev: number[]) => prev.push(props.id))
-        if(!checked) props.setSelected((prev: number[]) => {
-            let index = prev.indexOf(props.id)
-            if(index === -1) return prev
-            return prev.splice(index, 1)
-        })
+        if(checked) props.setSelected((prev: number[]) => [...prev, props.id])
+        if(!checked) props.setSelected((prev: number[]) => prev.filter(sel => sel !== props.id))
     }, [checked])
 
     return (

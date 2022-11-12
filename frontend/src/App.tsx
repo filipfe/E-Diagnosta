@@ -12,9 +12,9 @@ import PublicRoute from "./utils/PublicRoute"
 import PrivateRoute from "./utils/PrivateRoute"
 import Profile from "./pages/Profile"
 import Verify from "./pages/signup/Verify"
-import { useEffect } from "react"
+import { useLayoutEffect } from "react"
 import { useAppDispatch } from "./main"
-import { login } from "./reducers/login"
+import { login, logout } from "./reducers/login"
 import jwtDecode from 'jwt-decode'
 import AdminRoute from "./utils/AdminRoute"
 import AdminPanel from "./pages/AdminPanel"
@@ -24,7 +24,8 @@ const loginFromLocalStorage = loginString && JSON.parse(loginString)
 
 export default function App() {
   const dispatch = useAppDispatch()
-  useEffect(() => {
+  
+  useLayoutEffect(() => {
     if(loginFromLocalStorage) {
       let user: User = jwtDecode(loginFromLocalStorage.access)
       dispatch(login({
@@ -36,22 +37,20 @@ export default function App() {
           },
           tokens: { ...loginFromLocalStorage }
       }))
-    }
+    } else dispatch(logout())
   }, [])
   
   return (
     <>
       <Header />
-      <main>
+      <main style={{minHeight: '100vh'}}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/skp" element={<SKP />} />
+          <Route path="/skp/*" element={<SKP />} />
           <Route path="/o-nas" element={<AboutUs />} />
           <Route path="/logowanie" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/rejestracja" element={<PublicRoute><SignUp /></PublicRoute>} />
-          <Route path="/rejestracja/klient" element={<PublicRoute><ClientForm /></PublicRoute>} />
-          <Route path="/rejestracja/skp" element={<PublicRoute><StationForm /></PublicRoute>} />
-          <Route path="/rejestracja/klient/verify/*" element={<PublicRoute><Verify /></PublicRoute>} />
+          <Route path="/rejestracja/*" element={<PublicRoute><SignUp /></PublicRoute>} />
+          <Route path="/rejestracja/verify/*" element={<PublicRoute><Verify /></PublicRoute>} />
           <Route path="/profil" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/administracja" element={<AdminRoute><AdminPanel /></AdminRoute>} />
         </Routes>
