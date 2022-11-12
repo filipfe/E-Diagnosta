@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import { cities } from "../constants/cities"
 import { inputStyles } from "./home/Landing"
@@ -5,13 +6,21 @@ import { inputStyles } from "./home/Landing"
 export default function CitySearchBar({ setSearch }: { setSearch: any }) {
     const searchBar = useRef<any>(null!)
     const [input, setInput] = useState('')
-    const [filteredCities, setFilteredCities] = useState(cities)
+    const [filteredCities, setFilteredCities] = useState([])
     const [menu, setMenu] = useState(false)
 
     useEffect(() => {
-        setFilteredCities(cities.filter(city => city.toLowerCase().includes(input.toLowerCase())))
-        if(filteredCities.includes(input)) setMenu(false)
-        setSearch((prev: {}) => {
+        if(!input) axios.get('/api/skp/cities')
+            .then(res => res.data)
+            .then(data => setFilteredCities(data))
+                
+        if(input) {
+            let url = `/skp/cities/search?c=${input}`
+            axios.get(url)
+                .then(res => res.data)
+                .then(data => setFilteredCities(data))
+        }
+        if(filteredCities.findIndex((city: string) => city.toLowerCase() === input) > -1) setSearch((prev: {}) => {
             return {
                 ...prev,
                 city: input

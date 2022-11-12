@@ -31,5 +31,5 @@ class UserSerializer(serializers.ModelSerializer):
 class SKPListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SKP
-        fields = ['image', 'name']
+        fields = ['image', 'name', 'city']
         

@@ -13,5 +13,5 @@ urlpatterns = [
     path('api/logout', views.LogoutView.as_view()),
     path('api/user/<pk>', views.UserView.as_view()),
     path('api/skp', views.SKPListView.as_view()),
-    path('api/skp/search', views.SearchSKP.as_view()),
+    path('skp/search', views.SearchSKP.as_view()),
 ]
