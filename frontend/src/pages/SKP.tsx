@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import Loader from "../components/Loader"
+import useDebounce from "../hooks/useDebounce"
 
 export default function SKP() {
     return (
@@ -21,16 +22,14 @@ export interface StationProps {
 const SKPList = () => {
     const [stations, setStations] = useState<StationProps[]>([])
     const [input, setInput] = useState('')
+    const debounceSearch = useDebounce(input, 300)
 
     useEffect(() => {
-        if(!input) axios.get('/api/skp')
+        let url = `/api/skp${debounceSearch && '/search?q=' + debounceSearch}`
+        axios.get(url)
             .then(res => res.data)
             .then(data => setStations(data))
-
-        if(input) axios.get(`/api/skp/search?q=${input}`)
-                .then(res => res.data)
-                .then(data => setStations(data))
-    }, [input])
+    }, [debounceSearch])
 
     return (
         <>

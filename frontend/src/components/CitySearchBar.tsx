@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
-import { cities } from "../constants/cities"
+import useDebounce from "../hooks/useDebounce"
 import { inputStyles } from "./home/Landing"
 
 export default function CitySearchBar({ setSearch }: { setSearch: any }) {
@@ -8,19 +8,21 @@ export default function CitySearchBar({ setSearch }: { setSearch: any }) {
     const [input, setInput] = useState('')
     const [filteredCities, setFilteredCities] = useState([])
     const [menu, setMenu] = useState(false)
+    const debounceSearch: string = useDebounce(input, 400)
 
     useEffect(() => {
-        let url = `/skp/cities/search${input ? '?c=' + input : ''}`
+        let url = `/skp/cities/search${debounceSearch ? '?c=' + debounceSearch : ''}`
         axios.get(url)
             .then(res => res.data)
             .then(data => setFilteredCities(data))
-        if(filteredCities.findIndex((city: string) => city.toLowerCase() === input) > -1) setSearch((prev: {}) => {
+            .catch(() => console.log("error"))
+        if(filteredCities.findIndex((city: string) => city.toLowerCase() === debounceSearch) > -1) setSearch((prev: {}) => {
             return {
                 ...prev,
-                city: input
+                city: debounceSearch
             }
         })
-    }, [input])
+    }, [debounceSearch])
 
     const handleBlur = (e: Event) => {
         if(searchBar.current && !searchBar.current.contains(e.target)) return setMenu(false)
