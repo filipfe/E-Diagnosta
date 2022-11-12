@@ -16,15 +16,16 @@ class SearchSKP(generics.ListAPIView):
     def get_queryset(self):
         queries = self.request.GET.get('q')
         c = self.request.GET.get('c')
+        query = Q()
         if queries:
-            queries.split()
             q=Q()
-            for x in queries:
+            for x in queries.split():
                 q &= Q(name__icontains=x)
-            if c:
-                return SKP.objects.filter(Q(is_verified=True) & Q(q) & Q(city=c))
-            return SKP.objects.filter(Q(is_verified=True) & Q(q))
-        return None
+            query.add(Q(is_verified=True) & Q(q))
+        if c:
+            query.add(Q(city=c), Q.AND)
+        
+        return SKP.objects.filter(query)
 
 class SearchCities(APIView):
     serializer_class = SearchCitiesSerializer
