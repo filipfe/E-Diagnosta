@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import Loader from "../components/Loader"
 import StationSearchBar from "../components/StationSearchBar"
 
 export default function SKP() {
@@ -36,7 +37,7 @@ const SKPList = () => {
                 </div>
             </div>
             <div className="flex flex-col gap-6 sm:grid grid-cols-skp">
-                {stations.map(station => <StationRef {...station} key={station.name} />)}
+                {stations.length > 0 ? stations.map(station => <StationRef {...station} key={station.name} />) : <Loader />}
             </div>
         </>
     )

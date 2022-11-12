@@ -9,6 +9,7 @@ export default function StationSearchBar({ setStations }: { setStations: any }) 
     useEffect(() => {
         if(!input) navigate('/skp')
         if(input) {
+            setStations([])
             let url = `/skp/search?q=${input}`
             navigate(url)
             axios.get(url)
