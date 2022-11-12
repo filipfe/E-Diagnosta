@@ -17,5 +17,5 @@ export default function StationSearchBar({ setStations }: { setStations: any }) 
         }
     }, [input])
 
-    return <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wyszukaj nazwę stacji" />
+    return <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
 }
