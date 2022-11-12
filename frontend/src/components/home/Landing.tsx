@@ -17,10 +17,10 @@ export default function Landing() {
         
     }
     return (
-        <section className="padding py-[1.4in] md:py-[2in] bg-background flex flex-col xl:grid xl:gap-8 grid-cols-[4fr_3fr]">
+        <section className="padding py-[1.4in] md:py-[2in] bg-background flex flex-col xl:grid xl:gap-8 xl:items-center grid-cols-[4fr_3fr]">
             <div className="flex flex-col gap-3">
                 <span className="font-semibold tracking-wider xl:text-xl">z nami już <span className="text-primary">2349 pojazdów</span></span>
-                <h1 className="font-bold text-3xl text-font md:text-[2.5rem] xl:text-[2.8rem] md:leading-tight">Poznaj naszą ofertę <br /> badań technicznych <br/>i ruszaj<span className="text-primary"> w drogę</span></h1>
+                <h1 className="font-bold text-3xl text-font md:text-[2.5rem] xl:text-[min(calc(1rem+2vw),3rem)] md:leading-tight">Poznaj naszą ofertę <br /> badań technicznych <br/>i ruszaj<span className="text-primary"> w drogę</span></h1>
                 <h3 className="font-semibold text-sm mt-16">Uzupełnij formularz, aby wyszukać</h3>
                 <form onSubmit={handleSearch} className='flex flex-col sm:grid grid-cols-2 gap-4 max-w-max'>
                     <input className={`col-span-2 ${inputStyles}`} type='text' onChange={e => setSearch(prev => {

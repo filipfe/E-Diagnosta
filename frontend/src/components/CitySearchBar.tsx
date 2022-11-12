@@ -10,16 +10,10 @@ export default function CitySearchBar({ setSearch }: { setSearch: any }) {
     const [menu, setMenu] = useState(false)
 
     useEffect(() => {
-        if(!input) axios.get('/api/skp/cities')
+        let url = `/skp/cities/search${input ? '?c=' + input : ''}`
+        axios.get(url)
             .then(res => res.data)
             .then(data => setFilteredCities(data))
-                
-        if(input) {
-            let url = `/skp/cities/search?c=${input}`
-            axios.get(url)
-                .then(res => res.data)
-                .then(data => setFilteredCities(data))
-        }
         if(filteredCities.findIndex((city: string) => city.toLowerCase() === input) > -1) setSearch((prev: {}) => {
             return {
                 ...prev,
