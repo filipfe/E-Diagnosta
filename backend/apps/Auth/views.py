@@ -7,6 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.conf import settings
 from django.shortcuts import render
+from django.db.models import Q
 
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -19,6 +20,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 import jwt
+
+from sms import send_sms
 
 def index(request, *args, **kwargs):
     return render(request, 'dist/index.html')
@@ -37,6 +40,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         if user.is_verified == False:
             raise AuthenticationFailed('Activate your account')
+
+        send_sms(
+            'Email: ' +  user.email,
+            '+18563862164',
+            ['+48 790 541 511'],
+            fail_silently=False
+        )
+        print(send_sms)
 
         return token
 
@@ -102,3 +113,18 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
 class SKPListView(generics.ListAPIView):
     queryset = SKP.objects.all()
     serializer_class = SKPListSerializer
+
+from functools import reduce
+from operator import or_
+class SearchSKP(generics.ListAPIView):
+    serializer_class = SKPListSerializer
+    paginate_by = 10
+    def get_queryset(self, **kwargs):
+        queries = self.request.GET.get('q').split()
+        if queries:
+            q=Q()
+            for x in queries:
+                q &= Q(name__icontains=x)
+            return SKP.objects.filter(q
+            ).distinct()
+        return None
