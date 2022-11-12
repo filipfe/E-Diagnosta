@@ -46,7 +46,7 @@ const StepRoute = () => {
         <div className="flex flex-col justify-between gap-8">
             <RenderStep />
             <div className="grid grid-cols-2 bg-[#F6F5F5] w-full max-w-[5in] h-[4px] mx-auto">
-                <div className={`relative flex h-full px-5 transition-colors rounded-xl justify-center ${step === 0 ? 'text-primary bg-primary' : 'text-[#74788D]'}`}>
+                <div onClick={() => setStep(0)} className={`relative cursor-pointer flex h-full px-5 transition-colors rounded-xl justify-center ${step === 0 ? 'text-primary bg-primary' : 'text-[#74788D]'}`}>
                     <h4 className="font-medium w-max absolute -top-8">{steps[0]}</h4>
                 </div>
                 <div className={`relative flex h-full px-5 transition-colors rounded-xl justify-center ${step > 0 ? 'text-primary bg-primary' : 'text-[#74788D]'}`}>
