@@ -86,12 +86,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': BASE_DIR / 'db.sqlite3',
+    #}
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'TIpcNy9Y7PDQ6H1X7x2Z',
+        'HOST': 'containers-us-west-91.railway.app',
+        'PORT': '6512',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -206,3 +213,7 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 PAYPAL_RECEIVER_EMAIL = 'se6359@gmail.com'
 
 PAYPAL_TEST = False
+
+SMS_BACKEND = 'sms.backends.twilio.SmsBackend'
+TWILIO_ACCOUNT_SID = 'AC40a611e70c5b97b48a9f81ca8f52ff05'
+TWILIO_AUTH_TOKEN = '61d3a6c90d1d7ea961bc915789773161'
