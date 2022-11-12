@@ -1,4 +1,5 @@
 from .serializers import *
+from .models import *
 
 from django.db.models import Q
 from django.db.models.functions import comparison
@@ -9,26 +10,28 @@ from rest_framework.views import APIView
 
 class SKPListView(generics.ListAPIView):
     queryset = SKP.objects.filter(is_verified=True)
-    serializer_class = SearchSKPSerializer
+    serializer_class = SKPListSerializer
 
 class SearchSKP(generics.ListAPIView):
-    serializer_class = SKPListSerializer
+    serializer_class = SearchSKPSerializer
     def get_queryset(self):
-        queries = self.request.GET.get('q')
+        q = self.request.GET.get('q')
         c = self.request.GET.get('c')
-        query = Q()
-        if queries:
-            q=Q()
-            for x in queries.split():
-                q &= Q(name__icontains=x)
-            query.add(Q(is_verified=True) & Q(q), Q.AND)
+        v = self.request.GET.get('v')
+        queries = Q()
+        if q:
+            query=Q()
+            for x in q.split():
+                query &= Q(name__icontains=x)
+            queries.add(Q(is_verified=True) & Q(query), Q.AND)
         if c:
-            query.add(Q(city=c), Q.AND)
+            queries.add(Q(city=c), Q.AND)
+        if v:
+            queries.add(Q(vehicles__vehicle=v), Q.AND)
         
-        return SKP.objects.filter(query)
+        return SKP.objects.filter(queries)
 
 class SearchCities(APIView):
-    serializer_class = SearchCitiesSerializer
     def get(self, request):
         c = self.request.GET.get('c')
         if c:
@@ -43,3 +46,21 @@ class SearchCities(APIView):
         for x in cities:
             cities_list.append(x.city)
         return Response(cities_list)
+
+class FiltersSKP(APIView):
+    def get(self, request):
+        cities = SKP.objects.filter(is_verified=True).order_by('city').distinct('city')
+        cities_list = []
+        for x in cities:
+            cities_list.append(x.city)
+
+        vehicles = Vehicles.objects.all().order_by('vehicle')
+        vehicles_list = []
+        for x in vehicles:
+            vehicles_list.append(x.vehicle)
+        
+        data = {
+            'cities': cities_list,
+            'vehicles': vehicles_list,
+        }
+        return Response(data)
