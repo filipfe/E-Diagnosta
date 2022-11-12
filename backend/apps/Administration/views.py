@@ -5,15 +5,6 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.db.models.functions import comparison
-
-class SKPCitiesView(APIView):
-    def get(self, request):
-        cities = SKP.objects.filter(is_verified=True).order_by(comparison.Collate('city', 'und-x-icu'))
-        cities_list = []
-        for x in cities:
-            cities_list.append(x.city)
-        return Response(cities_list)
 
 class SKPVerifyListView(generics.ListAPIView):
     queryset = SKP.objects.filter(is_verified=False).order_by('created_at')

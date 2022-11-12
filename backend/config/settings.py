@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
     'apps.Auth',
     'apps.Administration',
+    'apps.SKP',
+    'apps.Contact',
 ]
 
 MIDDLEWARE = [

@@ -1,13 +1,12 @@
 from .serializers import *
 from .utils import Util
-from .models import User, SKP
+from .models import User
 
 from django.utils.translation import gettext_lazy as _
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.conf import settings
 from django.shortcuts import render
-from django.db.models import Q
 
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -109,22 +108,3 @@ class UserView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
-
-class SKPListView(generics.ListAPIView):
-    queryset = SKP.objects.all()
-    serializer_class = SKPListSerializer
-
-from functools import reduce
-from operator import or_
-class SearchSKP(generics.ListAPIView):
-    serializer_class = SKPListSerializer
-    paginate_by = 10
-    def get_queryset(self, **kwargs):
-        queries = self.request.GET.get('q').split()
-        if queries:
-            q=Q()
-            for x in queries:
-                q &= Q(name__icontains=x)
-            return SKP.objects.filter(q
-            ).distinct()
-        return None
