@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router"
 import Loader from "../components/Loader"
 import useDebounce from "../hooks/useDebounce"
 
@@ -20,6 +21,8 @@ export interface StationProps {
 }
 
 const SKPList = () => {
+    const navigate = useNavigate()
+    const location = useLocation()
     const [stations, setStations] = useState<StationProps[]>([])
     const [input, setInput] = useState('')
     const [filter, setFilter] = useState({
@@ -28,15 +31,24 @@ const SKPList = () => {
     const debounceSearch = useDebounce(input, 300)
 
     useEffect(() => {
-        let searchArr = [
-            debounceSearch && 'q=' + debounceSearch,
-            filter.city && 'c=' + filter.city
-        ]
-        let url = `/api/skp${debounceSearch || filter.city ? '/search?' : ''}${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
+        setStations([])
+        if(input) {
+            let searchArr = [
+                debounceSearch && 'q=' + debounceSearch,
+                filter.city && 'c=' + filter.city
+            ]
+            let url = `/skp${debounceSearch || filter.city ? '/search?' : ''}${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
+            navigate(url)
+        }
+    }, [debounceSearch, filter])
+
+    useEffect(() => {
+        setStations([])
+        let url = '/api' + location.pathname + location.search
         axios.get(url)
             .then(res => res.data)
             .then(data => setStations(data))
-    }, [debounceSearch, filter])
+    }, [location])
 
     return (
         <>

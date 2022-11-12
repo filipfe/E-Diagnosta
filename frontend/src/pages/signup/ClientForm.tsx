@@ -44,9 +44,9 @@ export default function ClientForm() {
     return (
         <div className='flex flex-col text-center items-center xl:items-start xl:w-max'>
             <h2 className="font-semibold text-[2.4rem] mb-4 xl:mb-6 w-full xl:text-5xl">Zarejestruj się</h2>
-            <p className="text-[#74788D] font-medium mb-16 w-full xl:text-lg">Uzupełnij formularz aby założyć konto jako użytkownik</p>
+            <p className="text-[#74788D] font-medium mb-16 w-full xl:text-lg">Uzupełnij formularz, aby założyć konto jako użytkownik</p>
             <form className='flex flex-col gap-4 font-medium relative' onSubmit={handleSubmit}>
-                <div className='flex flex-col max-w-full sm:grid grid-cols-2 gap-8'>
+                <div className='flex flex-col max-w-full sm:grid grid-cols-2 gap-6'>
                     <div className='relative'>
                         <input className={inputStyles.input} type='text' name='firstName' id='firstName' onChange={e => setDetails(prev => { return { ...prev, first_name: e.target.value }})} />
                         <span className={`${details.first_name ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Imię</span>

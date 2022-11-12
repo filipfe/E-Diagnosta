@@ -2,20 +2,29 @@ import { FormEvent, useState } from "react";
 import CitySearchBar from "../CitySearchBar";
 import FilledButton from "../FilledButton";
 import { landingMain } from '../../assets/home'
+import { useNavigate } from "react-router";
 
 export const inputStyles = 'py-3 px-6 rounded shadow-[0px_6px_132px_rgba(76,101,234,0.08)] bg-white placeholder:text-[#B4BFF7] font-medium text-primary'
 
+interface Search {
+    name: string,
+    vehicle: string,
+    city: string
+}
+
 export default function Landing() {
-    const [search, setSearch] = useState({
-        city: '',
-        date: '',
-        name: ''
+    const navigate = useNavigate()
+    const [search, setSearch] = useState<Search>({
+        name: '',
+        vehicle: '',
+        city: ''
     })
     
     const handleSearch = (e: FormEvent) => {
         e.preventDefault();
-        
+        navigate(`/skp/search?q=${search.name}&c=${search.city}&v=${search.vehicle}`);      
     }
+
     return (
         <section className="padding py-[1.4in] md:py-[2in] bg-background flex flex-col xl:grid xl:gap-8 xl:items-center grid-cols-[4fr_3fr]">
             <div className="flex flex-col gap-3">
@@ -29,12 +38,12 @@ export default function Landing() {
                             name: e.target.value
                         }
                     })} name='name' id='name' placeholder="Wpisz nazwę SKP" />
-                    <input className={inputStyles} type='date' onChange={e => setSearch(prev => {
+                    <input className={inputStyles} type='text' onChange={e => setSearch(prev => {
                         return {
                             ...prev,
-                            date: e.target.value
+                            vehicle: e.target.value
                         }
-                    })} name='date' id='date' placeholder="Termin" />
+                    })} name='vehicle' id='vehicle' placeholder="Typ pojazdu" />
                     <CitySearchBar setSearch={setSearch} />
                     <FilledButton>Wyszukaj</FilledButton>
                 </form>
