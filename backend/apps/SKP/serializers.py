@@ -2,16 +2,14 @@ from .models import SKP
 from rest_framework import serializers
 
 class SKPListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SKP
-        fields = ['image', 'name', 'city', 'desc']
-
-class SearchSKPSerializer(serializers.ModelSerializer):
+    vehicles = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = SKP
         fields = '__all__'
 
-class SearchCitiesSerializer(serializers.ModelSerializer):
+class SearchSKPSerializer(serializers.ModelSerializer):
+    vehicles = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = SKP
-        fields = ['city']
+        fields = ['image', 'name', 'city', 'desc', 'vehicles']
+    

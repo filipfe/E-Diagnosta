@@ -32,13 +32,13 @@ export default function Landing() {
                 <h1 className="font-bold text-3xl text-font md:text-[2.5rem] xl:text-[min(calc(1rem+2vw),3rem)] md:leading-tight">Poznaj naszą ofertę <br /> badań technicznych <br/>i ruszaj<span className="text-primary"> w drogę</span></h1>
                 <h3 className="font-semibold text-sm mt-16">Uzupełnij formularz, aby wyszukać</h3>
                 <form onSubmit={handleSearch} className='flex flex-col sm:grid grid-cols-2 gap-4 max-w-max'>
-                    <input className={`col-span-2 ${inputStyles}`} type='text' onChange={e => setSearch(prev => {
+                    <input className={`col-span-2 ${inputStyles}`} required type='text' onChange={e => setSearch(prev => {
                         return {
                             ...prev,
                             name: e.target.value
                         }
                     })} name='name' id='name' placeholder="Wpisz nazwę SKP" />
-                    <input className={inputStyles} type='text' onChange={e => setSearch(prev => {
+                    <input className={inputStyles} required type='text' onChange={e => setSearch(prev => {
                         return {
                             ...prev,
                             vehicle: e.target.value
