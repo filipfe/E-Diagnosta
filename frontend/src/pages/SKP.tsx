@@ -22,14 +22,17 @@ export interface StationProps {
 const SKPList = () => {
     const [stations, setStations] = useState<StationProps[]>([])
     const [input, setInput] = useState('')
+    const [filter, setFilter] = useState({
+        city: ''
+    })
     const debounceSearch = useDebounce(input, 300)
 
     useEffect(() => {
-        let url = `/api/skp${debounceSearch && '/search?q=' + debounceSearch}`
+        let url = `/api/skp${debounceSearch || filter.city ? '/search?' : ''}${debounceSearch && 'q=' + debounceSearch}${filter.city && '&c=' + filter.city}`
         axios.get(url)
             .then(res => res.data)
             .then(data => setStations(data))
-    }, [debounceSearch])
+    }, [debounceSearch, filter])
 
     return (
         <>
@@ -37,7 +40,8 @@ const SKPList = () => {
                 <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
                 <div className="flex items-center gap-4">
                     <h4 className="font-semibold">Miasto: </h4>
-
+                    <button onClick={() => setFilter(prev => { return { ...prev, city: 'Warszawa'}})}>Warszawa</button>
+                    <button onClick={() => setFilter(prev => { return { ...prev, city: 'Kraków'}})}>Kraków</button>
                 </div>
             </div>
             <div className="flex flex-col gap-6 sm:grid grid-cols-skp">
