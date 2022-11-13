@@ -9,8 +9,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-def skp(request, pk):
-    skp = SKP.objects.get(pk=pk)
+def skp(request, slug):
+    skp = SKP.objects.get(slug=slug)
     return render(request, 'dist/index.html', {'skp': skp})
 
 
