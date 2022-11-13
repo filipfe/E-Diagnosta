@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router"
 import Loader from "../components/Loader"
 import SKPFilter from "../components/skp/StationFilter"
@@ -9,16 +9,20 @@ import Station from "./Station"
 
 export default function SKP() {
     const [stations, setStations] = useState<StationProps[]>([])
+
     useEffect(() => {
         axios.get('/api/skp')
             .then(res => res.data)
             .then(data => setStations(data))
     }, [])
+
     return (
         <section className="padding pt-[1.4in] md:pt-[2in]">
             <Routes>
-                <Route path="/*" element={<SKPList defaultStations={stations} />} />
-                {stations.map(station => <Route path={`/${station.name.toLowerCase().split(" ").join("-")}-${station.id}`} element={<Station {...station} key={station.id} />} />)}
+                {stations.map(station => <Route path={`/${station.slug}`} element={<Station {...station} key={station.id} />} />)}
+                {['/', '/search/*'].map((path, index) => 
+                    <Route path={path} element={<SKPList defaultStations={stations} />} key={index} />
+                )}
             </Routes>
         </section>
     )
@@ -27,6 +31,7 @@ export default function SKP() {
 export interface StationProps {
     id: number,
     name: string,
+    slug: string,
     city: string,
     desc: string,
     image: string
@@ -44,7 +49,7 @@ const SKPList = ({ defaultStations }: { defaultStations: StationProps[]}) => {
     const [filter, setFilter] = useState<Filter>({
         city: ''
     })
-    const debounceSearch = useDebounce(input, 500)
+    const debounceSearch = useDebounce(input, 400)
 
     useEffect(() => {
         setStations([])
@@ -60,11 +65,14 @@ const SKPList = ({ defaultStations }: { defaultStations: StationProps[]}) => {
     }, [debounceSearch, filter])
 
     useEffect(() => {
-        setStations([])
+        let isCancelled = false
         let url = '/api' + location.pathname + location.search
         axios.get(url)
             .then(res => res.data)
-            .then(data => setStations(data))
+            .then(data => !isCancelled && setStations(data))
+        return () => {
+            isCancelled = true
+        }
     }, [location])
 
     return (

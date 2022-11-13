@@ -3,6 +3,7 @@ import CitySearchBar from "../CitySearchBar";
 import FilledButton from "../FilledButton";
 import { landingMain } from '../../assets/home'
 import { useNavigate } from "react-router";
+import Control from "react-control-js";
 
 export const inputStyles = 'py-3 px-6 rounded shadow-[0px_6px_132px_rgba(76,101,234,0.08)] bg-white placeholder:text-[#B4BFF7] font-medium text-primary'
 
@@ -27,6 +28,7 @@ export default function Landing() {
 
     return (
         <section className="padding py-[1.4in] md:py-[2in] bg-background flex flex-col xl:grid xl:gap-8 xl:items-center grid-cols-[4fr_3fr]">
+            <Control delay={400} ease='ease-out' x={-40} opacity={1} element={
             <div className="flex flex-col gap-3">
                 <span className="font-semibold tracking-wider xl:text-xl">z nami już <span className="text-primary">2349 pojazdów</span></span>
                 <h1 className="font-bold text-3xl text-font md:text-[2.5rem] xl:text-[min(calc(1rem+2vw),3rem)] md:leading-tight">Poznaj naszą ofertę <br /> badań technicznych <br/>i ruszaj<span className="text-primary"> w drogę</span></h1>
@@ -48,6 +50,7 @@ export default function Landing() {
                     <FilledButton>Wyszukaj</FilledButton>
                 </form>
             </div>
+            } />
             <img className="mt-24 mx-[12vw] xl:mx-0 xl:mt-0 xl:ml-auto" src={landingMain} alt="" />
         </section>
     )
