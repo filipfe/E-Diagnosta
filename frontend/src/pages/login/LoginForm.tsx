@@ -57,13 +57,13 @@ export default function LoginForm() {
         <div className='flex flex-col text-center items-center xl:items-start xl:w-max'>
             <h2 className="font-semibold text-[2.4rem] mb-4 xl:mb-6 w-full xl:text-5xl">Zaloguj się</h2>
             <p className="text-[#74788D] font-medium mb-16 w-full xl:text-lg">Uzupełnij formularz, aby zalogować się do swojego konta</p>
-            <form className='flex flex-col gap-4 font-medium relative' onSubmit={handleSubmit}>
-                <div className='flex flex-col max-w-full sm:grid grid-cols-2 gap-6'>
-                    <div className='relative'>
+            <form className='flex flex-col gap-4 w-full font-medium relative' onSubmit={handleSubmit}>
+                <div className='flex flex-col items-center max-w-full gap-6'>
+                    <div className='relative max-w-max w-full'>
                         <input className={inputStyles.input} required autoCorrect="off" type='text' name='email' id='email' onChange={e => setCredentials(prev => { return { ...prev, email: e.target.value }})} />
                         <span className={`${credentials.email ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Email</span>
                     </div>                    
-                    <div className='relative'>
+                    <div className='relative max-w-max w-full'>
                         <input className={inputStyles.input} required autoComplete="off" type='password' name='password' id='password' onChange={e => setCredentials(prev => { return { ...prev, password: e.target.value }})} />
                         <span className={`${credentials.password ? 'px-2 bg-white top-0' : 'top-[50%]'} ${inputStyles.placeholder}`}>Password</span>
                     </div>

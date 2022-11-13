@@ -31,7 +31,7 @@ export default function Contact() {
                 <span className="font-semibold">Skontaktuj się z nami</span>
                 <span className="font-bold text-4xl xl:w-max">za pomocą formularza</span>
             </h2>
-            <div className="bg-white rounded-xl p-12 max-w-full xl:self-start flex flex-col gap-6 shadow-[0px_0px_81px_rgba(15,50,235,0.07)]">
+            <div className="bg-white rounded-xl px-6 py-10 sm:p-12 max-w-full xl:self-start flex flex-col gap-6 shadow-[0px_0px_81px_rgba(15,50,235,0.07)]">
                 <h3 className="font-bold text-xl mb-2">Masz jakieś pytania?</h3>
                 <form onSubmit={handleSubmit} className="flex flex-col sm:grid grid-cols-2 gap-8 max-w-full font-medium">
                     <div className="relative min-w-0">

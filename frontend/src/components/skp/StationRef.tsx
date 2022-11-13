@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { StationProps } from "../../pages/SKP";
 
 export default function StationRef(props: StationProps) {
@@ -11,7 +12,7 @@ export default function StationRef(props: StationProps) {
             <div className="flex items-center justify-between">
                 <h4 className="font-semibold">{props.city}</h4>
                 <h4 className="font-semibold">10 - 18</h4>
-                <button className="text-primary font-semibold">Wyświetl</button>
+                <Link to={`/skp/${props.name.toLowerCase().split(" ").join("-")}-${props.id}`} className="text-primary font-semibold">Wyświetl</Link>
             </div>
         </div>
     )
