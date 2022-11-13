@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 class Vehicles(models.Model):
     vehicle = models.CharField(max_length=255)
@@ -22,6 +23,7 @@ class SKP(models.Model):
     name = models.CharField(max_length=255)
     city = models.CharField(max_length=255, db_collation='und-x-icu')
     desc = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
     vehicles = models.ManyToManyField(Vehicles, blank=True)
     is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -36,3 +38,7 @@ class SKP(models.Model):
             self.name,
             self.email,
             )
+    
+    def save(self, *args, **kwargs):
+        self.slug = '-'.join((slugify(self.name), slugify(self.pk)))
+        super(SKP, self).save(*args, **kwargs)
