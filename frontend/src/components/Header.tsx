@@ -30,7 +30,6 @@ const Nav = () => {
             <div className={`flex flex-col md:flex-row justify-center items-center bg-white gap-4 text-sm font-medium absolute top-0 md:relative left-full transition-transform ${active && '-translate-x-full'} md:left-auto h-screen md:h-full w-screen md:w-max`}>
                 <CustomLink to='/'>Strona Główna</CustomLink>
                 <CustomLink to='/skp'>Nasze Stacje</CustomLink>
-                <CustomLink to='/o-nas'>O Nas</CustomLink>
                 { logged ? <Link className="font-bold text-base ml-2" to='/profil'>{first_name}</Link> : 
                 <>
                     <Link className="border-[2px] mt-4 md:mt-0 md:ml-4 font-semibold border-primary text-primary rounded flex items-center py-2 px-6" to='/logowanie'>Zaloguj się</Link>

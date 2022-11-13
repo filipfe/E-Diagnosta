@@ -5,7 +5,6 @@ import FilledButton from '../../components/FilledButton'
 import { inputStyles } from '../../components/home/Contact'
 import Loader from '../../components/Loader'
 
-
 const DetailsContext = createContext<any>(null)
 
 export default function StationForm() {
