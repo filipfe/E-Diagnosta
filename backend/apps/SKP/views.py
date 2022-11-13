@@ -3,10 +3,16 @@ from .models import *
 
 from django.db.models import Q
 from django.db.models.functions import comparison
+from django.shortcuts import render
 
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+def skp(request, pk):
+    skp = SKP.objects.get(pk=pk)
+    return render(request, 'dist/index.html', {'skp': skp})
+
 
 class SKPListView(generics.ListAPIView):
     queryset = SKP.objects.filter(is_verified=True)
