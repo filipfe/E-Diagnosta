@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.Administration',
     'apps.SKP',
     'apps.Contact',
+    'apps.Opinions',
 ]
 
 MIDDLEWARE = [
