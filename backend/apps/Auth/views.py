@@ -59,7 +59,27 @@ class SignUpView(generics.GenericAPIView):
         current_site = get_current_site(request).domain
         relativeLink = reverse('activate-account')
         absurl = 'https://' + current_site + relativeLink + '?token=' + str(token)
-        email_body = 'Hi ' + user.username + '\nActivate your account: ' + absurl
+        email_body = 'Hi ' + user.first_name + '\nActivate your account: ' + absurl
+        data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Activate your account'}
+        Util.send_email(data)
+
+        return Response({'User created'}, status=status.HTTP_201_CREATED)
+
+class SignUpSKPView(generics.GenericAPIView):
+    serializer_class = SignUpSKPSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        user_data = serializer.data
+        user = User.objects.get(email=user_data['email'])
+        
+        token = RefreshToken.for_user(user).access_token
+        current_site = get_current_site(request).domain
+        relativeLink = reverse('activate-account')
+        absurl = 'https://' + current_site + relativeLink + '?token=' + str(token)
+        email_body = 'Hi ' + user.first_name + '\nActivate your account: ' + absurl
         data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Activate your account'}
         Util.send_email(data)
 
@@ -95,8 +115,3 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
-class UserView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]

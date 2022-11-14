@@ -2,12 +2,11 @@ from apps.Auth.models import *
 from .serializers import *
 
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 class SKPVerifyListView(generics.ListAPIView):
-    queryset = SKP.objects.filter(is_verified=False).order_by('created_at')
+    queryset = SKP.objects.filter(user__is_verified=True).filter(is_verified=False).order_by('created_at')
     serializer_class = SKPVerifySerializer
 
 class SKPVerifyPostView(APIView):

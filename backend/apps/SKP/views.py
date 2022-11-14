@@ -2,7 +2,6 @@ from .serializers import *
 from .models import *
 
 from django.db.models import Q
-from django.db.models.functions import comparison
 from django.shortcuts import render
 
 from rest_framework import generics
@@ -13,6 +12,10 @@ def skp(request, slug):
     skp = SKP.objects.get(slug=slug)
     return render(request, 'dist/index.html', {'skp': skp})
 
+class SKPView(generics.RetrieveAPIView):
+    queryset = SKP.objects.filter(is_verified=True)
+    serializer_class = SKPViewSerializer
+    lookup_field = 'slug'
 
 class SKPListView(generics.ListAPIView):
     queryset = SKP.objects.filter(is_verified=True)
@@ -24,12 +27,12 @@ class SearchSKP(generics.ListAPIView):
         q = self.request.GET.get('q')
         c = self.request.GET.get('c')
         v = self.request.GET.get('v')
-        queries = Q()
+        queries = Q(is_verified=True)
         if q:
             query=Q()
             for x in q.split():
                 query &= Q(name__icontains=x)
-            queries.add(Q(is_verified=True) & Q(query), Q.AND)
+            queries.add(Q(query), Q.AND)
         if c:
             queries.add(Q(city=c), Q.AND)
         if v:
