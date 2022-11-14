@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Filter } from "../../pages/SKP"
+import { search } from '../../assets/skp'
+import Loader from "../Loader"
 
 interface FilterProps {
     setInput: any,
@@ -25,14 +27,14 @@ export default function SKPFilter({ setInput, setFilter, filter }: FilterProps) 
     }, [])
 
     return (
-        <div className="flex items-center justify-between">
-            <input className="mb-8 mt-4" type='search' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
+        <div className="flex items-center justify-between mt-8 mb-12">
+            <input className="px-6 pl-14 py-[0.6rem] border-[#E4E4E9] border-[1px] rounded-3xl bg-search bg-[1.4rem_center] bg-no-repeat" type='search' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
             <div className="flex items-center gap-4">
                 <h4 className="font-semibold">Miasto: </h4>
                 <div className="relative">
-                    <button className="bg-primary py-2 px-5 rounded text-white" onClick={() => setActive(prev => { return { ...prev, cities: !prev.cities }})}>{filter.city ? filter.city : 'Wybierz miasto'}</button>
-                    {active.cities && <ul className="flex flex-col absolute top-[120%] z-10 right-0 shadow-md">
-                        {allFilters.cities.map(city => <li className="py-2 px-5 bg-white cursor-pointer" onClick={() => setFilter((prev: {}) => { return { ...prev, city: city}})}>{city}</li>)}
+                    <button className="bg-primary py-2 px-5 rounded font-medium text-white" onClick={() => setActive(prev => { return { ...prev, cities: !prev.cities }})}>{filter.city ? filter.city : 'Wybierz miasto'}</button>
+                    {active.cities && <ul className="flex flex-col absolute top-[120%] z-10 left-0 min-h-max max-h-[1.5in] overflow-y-auto rounded-xl overflow-hidden right-0 shadow-primarySmall">
+                        {allFilters.cities.length > 0 ? allFilters.cities.map(city => <li className="py-2 px-5 bg-white cursor-pointer" onClick={() => setFilter((prev: {}) => { return { ...prev, city: city}})}>{city}</li>) : <Loader className="mx-auto my-6 w-6" />}
                     </ul>}
                 </div>
             </div>

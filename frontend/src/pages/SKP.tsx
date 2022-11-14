@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Route, Routes, useLocation, useNavigate } from "react-router"
 import Loader from "../components/Loader"
 import SKPFilter from "../components/skp/StationFilter"
@@ -34,7 +34,9 @@ export interface StationProps {
     slug: string,
     city: string,
     desc: string,
-    image: string
+    image: string,
+    rating_count: number,
+    avg_rating: number
 }
 
 export interface Filter {
@@ -44,6 +46,7 @@ export interface Filter {
 const SKPList = ({ defaultStations }: { defaultStations: StationProps[]}) => {
     const navigate = useNavigate()
     const location = useLocation()
+    const firstRender = useRef(true)
     const [stations, setStations] = useState<StationProps[]>(defaultStations)
     const [input, setInput] = useState('')
     const [filter, setFilter] = useState<Filter>({
@@ -54,7 +57,6 @@ const SKPList = ({ defaultStations }: { defaultStations: StationProps[]}) => {
     useEffect(() => {
         setStations([])
         let url = '/skp'
-        if(location.search) url = location.pathname + location.search
         if(input || filter.city) {
             let searchArr = [
                 debounceSearch && 'q=' + debounceSearch,
@@ -62,6 +64,8 @@ const SKPList = ({ defaultStations }: { defaultStations: StationProps[]}) => {
             ]
             url = `/skp/search?${searchArr.length > 0 && searchArr.map(item => item).filter(item => item).join("&")}`
         }
+        if(firstRender.current) url = location.pathname + location.search
+        firstRender.current = false
         return navigate(url)
     }, [debounceSearch, filter])
 

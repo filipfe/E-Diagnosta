@@ -29,7 +29,7 @@ export default function Landing() {
     return (
         <section className="padding py-[1.4in] md:py-[2in] bg-background flex flex-col xl:grid xl:gap-8 xl:items-center grid-cols-[4fr_3fr]">
             <Control delay={200} ease='ease-out' opacity={1} element={
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 xl:mb-8">
                 <span className="font-semibold tracking-wider xl:text-xl">z nami już <span className="text-primary">2349 pojazdów</span></span>
                 <h1 className="font-bold text-3xl text-font md:text-[2.5rem] xl:text-[min(calc(1rem+2vw),3rem)] md:leading-tight">Poznaj naszą ofertę <br /> badań technicznych <br/>i ruszaj<span className="text-primary"> w drogę</span></h1>
                 <h3 className="font-semibold text-sm mt-16">Uzupełnij formularz, aby wyszukać</h3>
