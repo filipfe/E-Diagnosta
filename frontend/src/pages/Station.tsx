@@ -14,10 +14,10 @@ const initialDetails = {
 export default function Station(props: StationProps) {
     const [details, setDetails] = useState<Details>(initialDetails)
     useEffect(() => {
-        axios.get('/api/' + props.slug)
+        axios.get('/api/skp/' + props.slug)
             .then(res => res.data)
             .then(data => setDetails(data))
-    })
+    }, [])
 
     if(!details.address) return <Loader className="mx-auto" />
 

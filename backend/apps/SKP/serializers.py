@@ -6,6 +6,15 @@ from apps.Auth.models import User
 
 class SKPListSerializer(serializers.ModelSerializer):
     vehicles = serializers.StringRelatedField(many=True, read_only=True)
+    avg_rating = serializers.SerializerMethodField()
+    rating_count = serializers.SerializerMethodField()
+
+    def get_avg_rating(self, ob):
+        return ob.opinions.all().aggregate(Avg('rating'))['rating__avg']
+    
+    def get_rating_count(self, ob):
+        return ob.opinions.count()
+        
     class Meta:
         model = SKP
         fields = '__all__'
