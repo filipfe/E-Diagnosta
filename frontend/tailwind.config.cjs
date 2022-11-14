@@ -14,7 +14,7 @@ module.exports = {
       backgroundImage: {
         background: 'linear-gradient(89.7deg, rgba(0, 40, 250, 0.018) -12.57%, rgba(0, 40, 250, 0) 94.56%)',
         footer: 'linear-gradient(180deg, rgba(15, 50, 235, 0) 0%, rgba(15, 50, 235, 0.105) 100%)',
-        search: "url('./src/assets/search.svg')"
+        search: "url('./assets/search.svg')"
       },
       gridTemplateColumns: {
         skp: 'repeat(auto-fit, minmax(300px, 1fr))'
