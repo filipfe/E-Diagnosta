@@ -14,21 +14,25 @@ class SKPListSerializer(serializers.ModelSerializer):
     
     def get_rating_count(self, ob):
         return ob.opinions.count()
-        
+
     class Meta:
         model = SKP
-        fields = '__all__'
+        fields = ['image', 'name', 'city', 'desc', 'vehicles', 'avg_rating', 'rating_count']
 
 class SearchSKPSerializer(serializers.ModelSerializer):
     vehicles = serializers.StringRelatedField(many=True, read_only=True)
     avg_rating = serializers.SerializerMethodField()
+    rating_count = serializers.SerializerMethodField()
 
     def get_avg_rating(self, ob):
         return ob.opinions.all().aggregate(Avg('rating'))['rating__avg']
+
+    def get_rating_count(self, ob):
+        return ob.opinions.count()
         
     class Meta:
         model = SKP
-        fields = ['image', 'name', 'city', 'desc', 'vehicles', 'avg_rating']
+        fields = ['image', 'name', 'city', 'desc', 'vehicles', 'avg_rating', 'rating_count']
 
 class SKPViewOpinionsSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
