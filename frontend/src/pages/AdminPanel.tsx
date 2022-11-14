@@ -6,7 +6,7 @@ import { StationProps } from "./SKP"
 
 export default function AdminPanel() {
     return (
-        <section className="padding py-[1in]">
+        <section className="padding py-[1.4in] md:py-[1.8in] 2xl:py-[2.2in]">
             <div className="flex flex-col gap-6">
                 <h2 className="font-bold text-xl">Niezweryfikowane stacje</h2>
                 <UnVerified />

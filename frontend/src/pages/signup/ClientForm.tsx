@@ -39,7 +39,7 @@ export default function ClientForm() {
         }
     }
     
-    if(status.ok) return <section className="padding pt-[1in]"><h1 className='min-h-screen padding'>Email weryfikacyjny został wysłany</h1></section>
+    if(status.ok) return <h1 className='text-xl font-semibold'>Email weryfikacyjny <span className='text-primary'>został wysłany!</span></h1>
 
     return (
         <div className='flex flex-col text-center items-center xl:items-start xl:w-max'>

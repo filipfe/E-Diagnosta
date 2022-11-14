@@ -1,3 +1,4 @@
+import Control, { Controller } from "react-control-js"
 import { step1, step2, step3, step4 } from "../../assets/home"
 
 interface StepProps {
@@ -42,9 +43,9 @@ export default function Steps() {
                     <span className="text-primary font-semibold">Przegląd twojego pojazdu</span>
                     <span className="font-bold text-4xl">w 4 prostych krokach?</span>
                 </h2>
-                <div className="flex flex-col sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                    {steps.map(step => <Step {...step} key={step.subtitle} />)}
-                </div>
+                <Controller className="flex flex-col sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-4" ease='ease-out' onScroll={true} stagger={50} opacity={1}>
+                    {steps.map(step => <Control element={<Step {...step} key={step.subtitle} />} />)}
+                </Controller>
             </div>
         </section>
     )
@@ -52,7 +53,7 @@ export default function Steps() {
 
 const Step = (props: StepProps) => {
     return (
-        <div className="flex flex-col rounded-t bg-white border-b-4 border-primary gap-4 py-10 px-6 shadow-[0px_0px_93px_rgba(15,50,235,0.09);]">
+        <div className="flex flex-col h-full rounded-t bg-white border-b-4 border-primary gap-4 py-10 px-6 shadow-[0px_0px_93px_rgba(15,50,235,0.09);]">
             <img className="h-[5rem] mb-3 mr-auto" src={props.image} alt={props.subtitle + props.title} />
             <h3 className="flex flex-col">
                 <span className="font-semibold">{props.subtitle}</span>

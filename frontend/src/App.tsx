@@ -1,7 +1,6 @@
 import { Route, Routes, useLocation } from "react-router"
 import Home from "./pages/Home"
 import Header from "./components/Header"
-import AboutUs from "./pages/AboutUs"
 import Login, { User } from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import SKP from "./pages/SKP"
@@ -46,7 +45,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/skp/*" element={<SKP />} />
-            <Route path="/o-nas" element={<AboutUs />} />
             <Route path="/logowanie" element={<PublicRoute><Login /></PublicRoute>} />
             <Route path="/rejestracja/*" element={<PublicRoute><SignUp /></PublicRoute>} />
             <Route path="/rejestracja/verify/*" element={<PublicRoute><Verify /></PublicRoute>} />

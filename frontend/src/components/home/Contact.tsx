@@ -1,6 +1,7 @@
 import axios from "axios"
 import { FormEvent, useState } from "react"
 import Loader from "../Loader"
+import Control from 'react-control-js'
 
 export const inputStyles = {
     input: 'peer rounded-lg py-3 px-6 border-[1px] max-w-full border-[#E4E4E9]',
@@ -27,11 +28,13 @@ export default function Contact() {
 
     return (
         <section className="padding bg-primary py-16 xl:py-28 max-h-[7in] sm:max-h-[6in] xl:max-h-[5in] relative xl:mt-auto mb-[4in] flex flex-col gap-8 sm:gap-16 xl:flex-row xl:justify-between items-center">
+            <Control ease='ease-out' opacity={1} onScroll={true} element={
             <h2 className="flex flex-col gap-2 text-white xl:mb-8">
                 <span className="font-semibold">Skontaktuj się z nami</span>
                 <span className="font-bold text-4xl xl:w-max">za pomocą formularza</span>
             </h2>
-            <div className="bg-white rounded-xl p-12 max-w-full xl:self-start flex flex-col gap-6 shadow-[0px_0px_81px_rgba(15,50,235,0.07)]">
+            } />
+            <div className="bg-white rounded-xl xl:self-start px-6 py-10 sm:p-12 max-w-full flex flex-col gap-6 shadow-[0px_0px_81px_rgba(15,50,235,0.07)]">
                 <h3 className="font-bold text-xl mb-2">Masz jakieś pytania?</h3>
                 <form onSubmit={handleSubmit} className="flex flex-col sm:grid grid-cols-2 gap-8 max-w-full font-medium">
                     <div className="relative min-w-0">
