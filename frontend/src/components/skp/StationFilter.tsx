@@ -26,7 +26,7 @@ export default function SKPFilter({ setInput, setFilter, filter }: FilterProps) 
 
     return (
         <div className="flex items-center justify-between">
-            <input className="mb-8 mt-4" type='text' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
+            <input className="mb-8 mt-4" type='search' onChange={e => setInput(e.target.value)} placeholder="Wpisz nazwę stacji" />
             <div className="flex items-center gap-4">
                 <h4 className="font-semibold">Miasto: </h4>
                 <div className="relative">

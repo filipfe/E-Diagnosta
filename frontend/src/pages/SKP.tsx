@@ -54,6 +54,7 @@ const SKPList = ({ defaultStations }: { defaultStations: StationProps[]}) => {
     useEffect(() => {
         setStations([])
         let url = '/skp'
+        if(location.search) url = location.pathname + location.search
         if(input || filter.city) {
             let searchArr = [
                 debounceSearch && 'q=' + debounceSearch,

@@ -23,7 +23,7 @@ export default function Landing() {
     
     const handleSearch = (e: FormEvent) => {
         e.preventDefault();
-        navigate(`/skp/search?q=${search.name}&c=${search.city}&v=${search.vehicle}`);      
+        return navigate(`/skp/search?q=${search.name}&c=${search.city}&v=${search.vehicle}`);      
     }
 
     return (
