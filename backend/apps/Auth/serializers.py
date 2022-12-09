@@ -37,11 +37,12 @@ class SignUpSKPSerializer(serializers.ModelSerializer):
         skp_data = validated_data.pop('skp')
         skp = SKP.objects.create(**skp_data)
         
-        instance = User.objects.create(skp=skp, **validated_data)
+        instance = User.objects.create(type='station', skp=skp, **validated_data)
         
         if password is not None:
             instance.set_password(password)
             
         instance.save()
+        skp.save()
 
         return instance

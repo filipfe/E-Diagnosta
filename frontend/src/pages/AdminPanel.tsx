@@ -69,7 +69,9 @@ const Station = (props: StationVerifyRef) => {
     return (
         <label htmlFor={props.name} className="flex items-center justify-between gap-4 rounded p-4 shadow">
             <div className="flex items-center gap-4">
-                <img src={`/images/skp/${props.image.split('/').pop()}`} alt="" />
+                {
+                //<img src={`/images/skp/${props.image.split('/').pop()}`} alt="" />
+                }
                 <h3>{props.name}</h3>
             </div>
             <input type='checkbox' onChange={() => setChecked(prev => !prev)} checked={checked} id={props.name} />

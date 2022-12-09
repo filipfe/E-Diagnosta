@@ -30,15 +30,18 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         'no_active_account': _('Incorrect email or password')
     }
     def get_token(cls, user):
+        if user.is_verified == False:
+            raise AuthenticationFailed('Activate your account')
+
+        if user.skp.is_verified == False:
+            raise AuthenticationFailed('Wait for station verification')
+            
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
         
         token['first_name'] = user.first_name
         token['last_name'] = user.last_name
         token['email'] = user.email
         token['type'] = user.type
-
-        if user.is_verified == False:
-            raise AuthenticationFailed('Activate your account')
 
         return token
 

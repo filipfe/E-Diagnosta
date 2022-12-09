@@ -15,6 +15,7 @@ class SKPVerifyPostView(APIView):
         action = request.data['action']
         if action == 'verify':
             SKP.objects.filter(id__in=data).update(is_verified=True)
+
             return Response({'Successfully verified'})
         SKP.objects.filter(id__in=data).delete()
         return Response({'Successfully deleted'})
